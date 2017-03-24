@@ -32,14 +32,23 @@ func (c *EnvironmentController) URLMapping() {
 // @Failure 403 body is empty
 // @router / [post]
 func (c *EnvironmentController) Post() {
+
+	result := map[string]interface{}{
+		"success": true,
+	}
+
 	var v models.Environment
 	json.Unmarshal(c.Ctx.Input.RequestBody, &v)
 	if _, err := models.AddEnvironment(&v); err == nil {
 		c.Ctx.Output.SetStatus(201)
-		c.Data["json"] = v
+		result["data"] = v
 	} else {
-		c.Data["json"] = err.Error()
+		result["success"] = false
+		result["error"] = err.Error()
 	}
+
+	c.Data["json"] = result
+
 	c.ServeJSON()
 }
 
@@ -51,14 +60,23 @@ func (c *EnvironmentController) Post() {
 // @Failure 403 :id is empty
 // @router /:id [get]
 func (c *EnvironmentController) GetOne() {
+
+	result := map[string]interface{}{
+		"success": true,
+	}
+
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.ParseInt(idStr, 0, 64)
 	v, err := models.GetEnvironmentById(id)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		result["success"] = false
+		result["error"] = err.Error()
 	} else {
-		c.Data["json"] = v
+		result["data"] = v
 	}
+
+	c.Data["json"] = result
+
 	c.ServeJSON()
 }
 
@@ -156,15 +174,24 @@ func (c *EnvironmentController) GetAll() {
 // @Failure 403 :id is not int
 // @router /:id [put]
 func (c *EnvironmentController) Put() {
+
+	result := map[string]interface{}{
+		"success": true,
+	}
+
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.ParseInt(idStr, 0, 64)
 	v := models.Environment{Id: id}
 	json.Unmarshal(c.Ctx.Input.RequestBody, &v)
 	if err := models.UpdateEnvironmentById(&v); err == nil {
-		c.Data["json"] = "OK"
+		result["data"] = v
 	} else {
-		c.Data["json"] = err.Error()
+		result["success"] = false
+		result["error"] = err.Error()
 	}
+
+	c.Data["json"] = result
+
 	c.ServeJSON()
 }
 

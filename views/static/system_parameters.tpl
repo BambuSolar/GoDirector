@@ -19,14 +19,14 @@
                             <tr>
                                 <td colspan="4">
                                     <nav aria-label="...">
-                                        <ul class="pager">
-                                            <li class="previous">
-                                                <button class="btn btn-default"><span aria-hidden="true">&larr;</span> Previous</button>
-                                            </li>
-                                            <li class="next">
-                                                <button class="btn btn-default">Next <span aria-hidden="true">&rarr;</span></button>
-                                            </li>
-                                        </ul>
+                                        <div class="row pager">
+                                            <div class="col-md-4 col-sm-4 col-xs-6 previous">
+                                                <button class="btn btn-default btn-block"><span aria-hidden="true">&larr;</span> Previous</button>
+                                            </div>
+                                            <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-6 next">
+                                                <button class="btn btn-default btn-block">Next <span aria-hidden="true">&rarr;</span></button>
+                                            </div>
+                                        </div>
                                     </nav>
                                 </td>
                             </tr>

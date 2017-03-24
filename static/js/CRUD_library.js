@@ -38,6 +38,14 @@ function CRUD (config) {
 
         jQuery.extend(self.default_config.rowTemplateToIndexTable, rowTemplateToIndexTable);
 
+
+
+        var table = self.default_config.listTable;
+
+        var colspan = 2 + rowTemplateToIndexTable.columns.length;
+
+        $(table).find('tfoot').find('td').attr('colspan', colspan);
+
         self.listeners();
 
         self.load_index();
@@ -147,11 +155,7 @@ function CRUD (config) {
 
         var config = self.default_config.rowTemplateToIndexTable;
 
-        if(config.columns){
-
-            row += '<td>' + (index + 1) + '</td>';
-
-        }
+        row += '<td>' + (index + 1) + '</td>';
 
         $.each(config.columns, function ( _ , c) {
 
@@ -512,6 +516,11 @@ function CRUD (config) {
 
             }
 
+            $(modalElement).find('.form-group')
+                .removeClass('has-error')
+                .removeClass('has-success')
+                .find('.help-block').remove();
+
             $(modalElement).find('.modal-title').text(options.title);
 
         }else {
@@ -596,11 +605,11 @@ function CRUD (config) {
 
                 var text = $(error).text();
 
+                var parent = $(element).parent();
+
+                parent.removeClass('has-success').addClass('has-error');
+
                 if(text){
-
-                    var parent = $(element).parent();
-
-                    parent.removeClass('has-success').addClass('has-error');
 
                     parent.find('.help-block').remove();
 

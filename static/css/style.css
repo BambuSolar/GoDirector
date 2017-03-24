@@ -15,8 +15,12 @@
     outline: none !important;
 }
 
+.pager{
+    width: 100%;
+}
+
 .pager .btn{
-    width: 150px;
+
 }
 
 .pager .next{
