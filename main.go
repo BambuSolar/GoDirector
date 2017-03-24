@@ -1,7 +1,7 @@
 package main
 
 import (
-		_ "github.com/caballerojavier13/GoDirector/routers"
+		_ "github.com/BambuSolar/GoDirector/routers"
 		"github.com/astaxie/beego"
 		"github.com/astaxie/beego/orm"
 		_ "github.com/mattn/go-sqlite3"
