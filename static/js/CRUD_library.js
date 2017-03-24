@@ -306,7 +306,7 @@ function CRUD (config) {
                         swal({
                             title: "Deleted",
                             text: "Item has been deleted",
-                            type: "info",
+                            type: "success",
                             showCancelButton: false,
                             closeOnConfirm: true
                         }, function () {
@@ -341,7 +341,7 @@ function CRUD (config) {
                 hideLoader();
 
                 if(successCallback){
-                    successCallback(result);
+                    successCallback(result.data);
                 }
 
             })
@@ -453,6 +453,11 @@ function CRUD (config) {
 
                 $('#modal-form').find('form').attr('method', 'PUT');
 
+                var url = 'http://' + window.location.host + self.default_config.path + '/' + self.elementSelected;
+
+                $('#modal-form').find('form').attr('action', url);
+
+
                 $('#modal-form').modal('show');
 
             });
@@ -470,6 +475,10 @@ function CRUD (config) {
         self._createModalForm(options, function () {
 
             $('#modal-form').find('form').attr('method', 'POST');
+
+            var url = 'http://' + window.location.host + self.default_config.path;
+
+            $('#modal-form').find('form').attr('action', url);
 
             $('#modal-form').modal('show');
 
@@ -530,7 +539,7 @@ function CRUD (config) {
             var footer = '';
 
             footer += '<div class="col-md-4 col-sm-4 col-xs-6">';
-            footer += '<button type="button" class="btn btn-primary btn-block">Save</button>';
+            footer += '<button type="submit" class="btn btn-primary btn-block">Save</button>';
             footer += '</div>';
 
             footer += '<div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-6">';
@@ -560,6 +569,8 @@ function CRUD (config) {
 
             $('body').append(modal);
 
+            self._activateForm();
+
         }
 
         if(callback){
@@ -567,6 +578,155 @@ function CRUD (config) {
         }
 
     };
+
+    this._activateForm = function(){
+
+        var rules = {};
+
+        $.each(self.default_config.formFields, function (index, item) {
+
+            var rule = item.options.rule;
+
+            rules[item.field] = rule;
+        });
+
+        $('#modal-form').find('form').validate({
+            rules: rules,
+            errorPlacement: function(error, element) {
+
+                var text = $(error).text();
+
+                if(text){
+
+                    var parent = $(element).parent();
+
+                    parent.removeClass('has-success').addClass('has-error');
+
+                    parent.find('.help-block').remove();
+
+                    parent.append('<span class="help-block">' + text + '</span>');
+
+                }
+            },
+            success: function(element) {
+
+                var id = $(element).attr('id').split('-')[0];
+
+                var parent = $('#' + id).parent();
+
+                parent.removeClass('has-error').addClass('has-success');
+
+                parent.find('.help-block').remove();
+
+            },
+            submitHandler: function(form) {
+
+                var data = JSON.stringify(self._getFormData(form));
+
+                var method = $(form).attr('method');
+
+                var url = $(form).attr('action');
+
+                showLoader();
+
+                $.ajax({
+                        "url": url,
+                        "method": method,
+                        "data": data,
+                        "contentType": "application/json"
+                    })
+                    .done(function(result, textStatus, xhr){
+
+                        hideLoader();
+
+                        self._successFormRequest(result, textStatus, xhr);
+
+                    })
+                    .fail(function( jqXHR, textStatus ){
+
+                        hideLoader();
+
+                        self._failFormRequest(jqXHR, textStatus );
+
+                    });
+
+            }
+
+        });
+
+    };
+
+    this._getFormData = function (form){
+        var unindexed_array = $(form).serializeArray();
+        var indexed_array = {};
+
+        $.map(unindexed_array, function(n, i){
+            indexed_array[n['name']] = n['value'];
+        });
+
+        return indexed_array;
+    };
+
+    this._successFormRequest = function(result, textStatus, xhr){
+
+        if(result.success){
+
+            var operation = "edited";
+
+            var operationTitle = "Edition";
+
+
+            if(xhr.status == 201){
+
+                operation = "created";
+
+                operationTitle = "Creation";
+
+            }
+
+            swal({
+                title: operationTitle,
+                text: "Item has been " + operation + " successfully",
+                type: "success",
+                showCancelButton: false,
+                closeOnConfirm: true
+            }, function () {
+
+                self.load_index();
+
+                window.sweetAlert.close();
+
+                $('#modal-form').modal('hide');
+
+            });
+
+        }else{
+
+            swal({
+                title: "An error occurred",
+                text: result.error,
+                type: "error",
+                showCancelButton: false,
+                closeOnConfirm: true
+            }, function () {
+
+                window.sweetAlert.close();
+
+            });
+
+        }
+
+
+    };
+
+    this._failFormRequest = function(jqXHR, textStatus ){
+        if(jqXHR.statusText == "error"){
+
+            showErrorMessage('An error occurred', 'Please, try it again');
+
+        }
+    };
+
 
     this._createField = function(item, value){
 
@@ -579,13 +739,17 @@ function CRUD (config) {
 
                 html_field = '<div class="form-group">';
                 html_field += '<label for="field'+ item.field +'">' + config_field.label + '</label>';
-                html_field += '<input type="' + config_field.type.split(':')[1] + '" ';
+                html_field += '<input type="' + config_field.type.split(':')[1] + '" name="' + item.field + '" ';
 
                 if(value){
                     html_field += 'value="' + value + '" ';
                 }
 
-                html_field += 'class="form-control" id="field'+ item.field +'" placeholder="' + config_field.placeholder + '">';
+                if(config_field.autocomplete =! undefined && !config_field.autocomplete){
+                    html_field += 'autocomplete="off" ';
+                }
+
+                html_field += 'class="form-control" id="field' + item.field + '" placeholder="' + config_field.placeholder + '">';
                 html_field += '</div>';
 
                 break

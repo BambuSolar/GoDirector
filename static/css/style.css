@@ -3,6 +3,8 @@
     top: 85px;
     right: 20px;
     width: 300px;
+    z-index: 99999;
+    box-shadow: 0 0 10px black;
 }
 
 .table {

@@ -3,7 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
-	"github.com/caballerojavier13/GoDepoyer/models"
+	"github.com/caballerojavier13/GoDirector/models"
 	"strconv"
 	"strings"
 
@@ -32,17 +32,24 @@ func (c *System_parametersController) URLMapping() {
 // @Failure 403 body is empty
 // @router / [post]
 func (c *System_parametersController) Post() {
+
+	result := map[string]interface{}{
+		"success": true,
+	}
+
 	var v models.System_parameters
 	json.Unmarshal(c.Ctx.Input.RequestBody, &v)
 	if _, err := models.AddSystem_parameters(&v); err == nil {
 		c.Ctx.Output.SetStatus(201)
-		c.Data["json"] = v
+		result["data"] = v
 	} else {
-		c.Data["json"] = err.Error()
+		result["success"] = false
+		result["error"] = err.Error()
 	}
 
-	c.ServeJSON()
+	c.Data["json"] = result
 
+	c.ServeJSON()
 }
 
 // GetOne ...
@@ -54,17 +61,21 @@ func (c *System_parametersController) Post() {
 // @router /:id [get]
 func (c *System_parametersController) GetOne() {
 
-	c.Layout = "layout.tpl"
-	c.TplName = "system_parameters/show.tpl"
+	result := map[string]interface{}{
+		"success": true,
+	}
 
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.ParseInt(idStr, 0, 64)
 	v, err := models.GetSystem_parametersById(id)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		result["success"] = false
+		result["error"] = err.Error()
 	} else {
-		c.Data["json"] = v
+		result["data"] = v
 	}
+
+	c.Data["json"] = result
 
 	c.ServeJSON()
 
@@ -172,18 +183,22 @@ func (c *System_parametersController) GetAll() {
 // @router /:id [put]
 func (c *System_parametersController) Put() {
 
-	c.Layout = "layout.tpl"
-	c.TplName = "system_parameters/edit.tpl"
+	result := map[string]interface{}{
+		"success": true,
+	}
 
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.ParseInt(idStr, 0, 64)
 	v := models.System_parameters{Id: id}
 	json.Unmarshal(c.Ctx.Input.RequestBody, &v)
 	if err := models.UpdateSystem_parametersById(&v); err == nil {
-		c.Data["json"] = v
+		result["data"] = v
 	} else {
-		c.Data["json"] = err.Error()
+		result["success"] = false
+		result["error"] = err.Error()
 	}
+
+	c.Data["json"] = result
 
 	c.ServeJSON()
 

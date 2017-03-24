@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"github.com/caballerojavier13/GoDepoyer/controllers"
+	"github.com/caballerojavier13/GoDirector/controllers"
 	"github.com/astaxie/beego"
 )
 

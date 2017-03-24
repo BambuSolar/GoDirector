@@ -3,7 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
-	"github.com/caballerojavier13/GoDepoyer/models"
+	"github.com/caballerojavier13/GoDirector/models"
 	"strconv"
 	"strings"
 

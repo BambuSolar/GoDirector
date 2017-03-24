@@ -32,7 +32,6 @@ func AddSystem_parameters(m *System_parameters) (id int64, err error) {
 func GetSystem_parametersById(id int64) (v *System_parameters, err error) {
 	o := orm.NewOrm()
 	v = &System_parameters{Id: id}
-	fmt.Println(v)
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}

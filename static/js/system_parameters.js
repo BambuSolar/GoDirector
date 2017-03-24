@@ -14,10 +14,13 @@ $(function(){
                     form: {
                         type: "input:text",
                         label: "Key",
-                        placeholder: "Key"
+                        placeholder: "Key",
+                        autocomplete: false
                     },
-                    required: true,
-                    minlength: 2
+                    rule: {
+                        required: true,
+                        minlength: 2
+                    }
                 }
             },
             {
@@ -26,7 +29,8 @@ $(function(){
                     form: {
                         type: "input:text",
                         label: "Value",
-                        placeholder: "Value"
+                        placeholder: "Value",
+                        autocomplete: false
                     }
                 }
             }
