@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"github.com/caballerojavier13/GoDirector/controllers"
+	"github.com/BambuSolar/GoDirector/controllers"
 	"github.com/astaxie/beego"
 )
 
@@ -10,6 +10,7 @@ func init() {
 
 	beego.Router("/system_parameters", &controllers.StaticController{}, "get:IndexSystemParameters")
 	beego.Router("/environments", &controllers.StaticController{}, "get:IndexEnvironments")
+	beego.Router("/deploys", &controllers.StaticController{}, "get:IndexDeploys")
 
 	beego.Router("/api/system_parameters", &controllers.System_parametersController{}, "get:GetAll")
 	beego.Router("/api/system_parameters", &controllers.System_parametersController{}, "post:Post")

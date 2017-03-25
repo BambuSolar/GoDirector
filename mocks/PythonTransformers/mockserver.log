@@ -1,0 +1,59 @@
+2017-03-24 23:49:59,786 INFO [MockServer thread for port: 5000] o.mockserver.mockserver.MockServer [?:?] MockServer started on port: 5000
+2017-03-24 23:50:25,845 INFO [nioEventLoopGroup-3-1] o.m.mockserver.MockServerHandler [?:?] creating expectation:
+
+	{
+	  "httpRequest" : {
+	    "method" : "POST",
+	    "path" : "/api/builds"
+	  },
+	  "times" : {
+	    "remainingTimes" : 1,
+	    "unlimited" : false
+	  },
+	  "timeToLive" : {
+	    "unlimited" : true
+	  },
+	  "httpResponse" : {
+	    "statusCode" : 201,
+	    "headers" : [ {
+	      "name" : "Content-Type",
+	      "values" : [ "application/json; charset=utf-8" ]
+	    } ],
+	    "body" : "{ \"data\": \"v0.0.1-beta_1\" }",
+	    "delay" : {
+	      "timeUnit" : "SECONDS",
+	      "value" : 3
+	    }
+	  }
+	}
+
+
+2017-03-24 23:50:25,895 INFO [nioEventLoopGroup-3-2] o.m.mockserver.MockServerHandler [?:?] creating expectation:
+
+	{
+	  "httpRequest" : {
+	    "method" : "POST",
+	    "path" : "/api/deploys"
+	  },
+	  "times" : {
+	    "remainingTimes" : 1,
+	    "unlimited" : false
+	  },
+	  "timeToLive" : {
+	    "unlimited" : true
+	  },
+	  "httpResponse" : {
+	    "statusCode" : 201,
+	    "headers" : [ {
+	      "name" : "Content-Type",
+	      "values" : [ "application/json; charset=utf-8" ]
+	    } ],
+	    "body" : "{\"message\": \"Deploy success\"}",
+	    "delay" : {
+	      "timeUnit" : "SECONDS",
+	      "value" : 3
+	    }
+	  }
+	}
+
+
