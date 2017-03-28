@@ -33,7 +33,7 @@
         <div class="panel panel-default" id="progress-panel">
             <div class="panel-body">
 
-
+                <ul class="list-group deploy-steps-list"></ul>
 
             </div>
         </div>

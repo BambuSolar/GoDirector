@@ -9,9 +9,9 @@ var Build = (function () {
         var url = '/api/environments';
 
         $.ajax({
-                "url": url,
-                "method": 'GET'
-            })
+            "url": url,
+            "method": 'GET'
+        })
             .done(function(result, textStatus, xhr){
 
                 $('#buildEnvironmentSelect')
@@ -87,8 +87,6 @@ var Build = (function () {
 
                 var data = JSON.stringify(_getFormData(form));
 
-                console.log(data);
-
                 var method = "POST";
 
                 var url = "/api/builds";
@@ -96,11 +94,11 @@ var Build = (function () {
                 showLoader();
 
                 $.ajax({
-                        "url": url,
-                        "method": method,
-                        "data": data,
-                        "contentType": "application/json"
-                    })
+                    "url": url,
+                    "method": method,
+                    "data": data,
+                    "contentType": "application/json"
+                })
                     .done(function(result, textStatus, xhr){
 
                         hideLoader();
@@ -124,7 +122,7 @@ var Build = (function () {
         });
 
     };
-    
+
     var _getFormData = function (form){
         var unindexed_array = $(form).serializeArray();
         var indexed_array = {};
@@ -141,7 +139,134 @@ var Build = (function () {
 
     };
 
+    var checkRunningTask = function () {
+
+        showForm();
+
+        var url = "/api/builds/last";
+
+        $.ajax({
+            "url": url,
+            "method": "GET",
+            "contentType": "application/json"
+        })
+            .done(function(result, textStatus, xhr){
+
+                if(result.data.length > 0){
+
+                    var task = result.data[0];
+
+                    if (task.Status != "in_progress"){
+                        showForm();
+                    }else{
+                        hideForm();
+                    }
+
+                    var url = "/api/builds/steps";
+
+                    $.ajax({
+                        "url": url,
+                        "method": "GET",
+                        "contentType": "application/json"
+                    })
+                        .done(function(result, textStatus, xhr){
+
+                            createSteps(task, result.data);
+
+                            hideLoader();
+
+                        })
+                        .fail(function( jqXHR, textStatus ){
+
+                            hideLoader();
+
+                        });
+
+                }else{
+                    hideSteps();
+                }
+
+            })
+            .fail(function( jqXHR, textStatus ){
+
+                hideLoader();
+
+            });
+
+    };
+
+    var createSteps = function (task, steps){
+
+        $('#progress-panel').find('.deploy-steps-list').empty();
+
+        $.each(steps, function (index, item) {
+
+            var class_step = '';
+
+            if(task.CurrentStep == index + 1){
+
+                if(task.Status == 'in_progress'){
+                    class_step = 'list-group-item-info';
+                }else{
+                    if(task.Status == "error"){
+                        class_step = 'list-group-item-danger';
+                    }else{
+                        class_step = 'list-group-item-success';
+                    }
+                }
+
+            }else{
+
+                if(index + 1 < task.CurrentStep) {
+
+                    class_step = 'list-group-item-success';
+
+                }
+
+            }
+
+            var step = '<li class="list-group-item deploy-step ' + class_step + '">';
+            step += '<div class="deploy-step-number">' + ( index + 1 )+ '</div>';
+            step += '<h4 class="list-group-item-heading">' + item + '</h4>';
+            step += '</li>';
+
+            $('#progress-panel').find('.deploy-steps-list').append(step);
+
+        });
+
+        showSteps();
+
+    };
+
+    var showSteps = function () {
+
+        $('#progress-panel').show()
+
+    };
+
+    var hideSteps = function () {
+
+        $('#progress-panel').hide();
+
+    };
+
+    var showForm = function () {
+
+        $('#form-panel').show();
+
+    };
+
+    var hideForm = function () {
+
+        $('#form-panel').hide();
+
+    };
+
     var init = function () {
+
+        checkRunningTask();
+
+        setInterval(function(){ checkRunningTask(); }, 5 * 1000);
 
         getEnvironments();
 

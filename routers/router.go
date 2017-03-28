@@ -27,6 +27,8 @@ func init() {
 	beego.Router("/api/environments/:id", &controllers.EnvironmentController{}, "delete:Delete")
 
 	beego.Router("/api/builds/status", &controllers.BuildController{}, "get:GetStatus")
+	beego.Router("/api/builds/steps", &controllers.BuildController{}, "get:GetSteps")
+	beego.Router("/api/builds/last", &controllers.BuildController{}, "get:GetLast")
 
 	beego.Router("/api/builds", &controllers.BuildController{}, "post:Post")
 
