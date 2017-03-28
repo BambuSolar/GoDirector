@@ -26,12 +26,10 @@ func init() {
 	beego.Router("/api/environments/:id", &controllers.EnvironmentController{}, "put:Put")
 	beego.Router("/api/environments/:id", &controllers.EnvironmentController{}, "delete:Delete")
 
-
 	beego.Router("/api/builds/status", &controllers.BuildController{}, "get:GetStatus")
 
 	beego.Router("/api/builds", &controllers.BuildController{}, "post:Post")
 
 	beego.Router("/api/deploy2", &controllers.Deploy2Controller{}, "post:Post")
-
 
 }
