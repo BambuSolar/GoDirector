@@ -25,7 +25,13 @@
             <ul class="nav navbar-nav">
                 <li><a href="/system_parameters">System Parameters</a></li>
                 <li><a href="/environments">Environments</a></li>
-                <li><a href="/deploys">Deploys</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Deploy <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/deploy">Deploys</a></li>
+                        <li><a href="/build">Builds</a></li>
+                    </ul>
+                </li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

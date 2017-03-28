@@ -1,5 +1,5 @@
-2017-03-24 23:49:59,786 INFO [MockServer thread for port: 5000] o.mockserver.mockserver.MockServer [?:?] MockServer started on port: 5000
-2017-03-24 23:50:25,845 INFO [nioEventLoopGroup-3-1] o.m.mockserver.MockServerHandler [?:?] creating expectation:
+2017-03-26 01:49:43,220 INFO [MockServer thread for port: 5000] o.mockserver.mockserver.MockServer [?:?] MockServer started on port: 5000
+2017-03-26 01:51:52,619 INFO [nioEventLoopGroup-3-1] o.m.mockserver.MockServerHandler [?:?] creating expectation:
 
 	{
 	  "httpRequest" : {
@@ -19,21 +19,93 @@
 	      "name" : "Content-Type",
 	      "values" : [ "application/json; charset=utf-8" ]
 	    } ],
-	    "body" : "{ \"data\": \"v0.0.1-beta_1\" }",
+	    "body" : "{ \"data\": \"v0.2.2-beta_1\" }",
 	    "delay" : {
 	      "timeUnit" : "SECONDS",
-	      "value" : 3
+	      "value" : 0
 	    }
 	  }
 	}
 
 
-2017-03-24 23:50:25,895 INFO [nioEventLoopGroup-3-2] o.m.mockserver.MockServerHandler [?:?] creating expectation:
+2017-03-26 01:52:03,431 INFO [nioEventLoopGroup-3-2] o.m.mockserver.MockServerHandler [?:?] returning response:
+
+	{
+	  "statusCode" : 201,
+	  "headers" : [ {
+	    "name" : "Content-Type",
+	    "values" : [ "application/json; charset=utf-8" ]
+	  } ],
+	  "body" : "{ \"data\": \"v0.2.2-beta_1\" }"
+	}
+
+ for request:
+
+	{
+	  "method" : "POST",
+	  "path" : "/api/builds",
+	  "headers" : [ {
+	    "name" : "Host",
+	    "values" : [ "localhost:5000" ]
+	  }, {
+	    "name" : "User-Agent",
+	    "values" : [ "Go-http-client/1.1" ]
+	  }, {
+	    "name" : "Content-Length",
+	    "values" : [ "59" ]
+	  }, {
+	    "name" : "Cache-Control",
+	    "values" : [ "no-cache" ]
+	  }, {
+	    "name" : "Accept-Encoding",
+	    "values" : [ "gzip" ]
+	  } ],
+	  "keepAlive" : true,
+	  "secure" : false,
+	  "body" : "{\n\t\"url\": \"http://localhost:7000\",\n\t\"environment\": \"beta\"\n}"
+	}
+
+
+2017-03-26 01:52:06,566 INFO [nioEventLoopGroup-3-2] o.m.mockserver.MockServerHandler [?:?] returning response:
+
+	{
+	  "statusCode" : 404
+	}
+
+ for request:
+
+	{
+	  "method" : "POST",
+	  "path" : "/api/builds",
+	  "headers" : [ {
+	    "name" : "Host",
+	    "values" : [ "localhost:5000" ]
+	  }, {
+	    "name" : "User-Agent",
+	    "values" : [ "Go-http-client/1.1" ]
+	  }, {
+	    "name" : "Content-Length",
+	    "values" : [ "59" ]
+	  }, {
+	    "name" : "Cache-Control",
+	    "values" : [ "no-cache" ]
+	  }, {
+	    "name" : "Accept-Encoding",
+	    "values" : [ "gzip" ]
+	  } ],
+	  "keepAlive" : true,
+	  "secure" : false,
+	  "body" : "{\n\t\"url\": \"http://localhost:7000\",\n\t\"environment\": \"beta\"\n}"
+	}
+
+
+2017-03-26 16:09:22,513 INFO [MockServer thread for port: 5000] o.mockserver.mockserver.MockServer [?:?] MockServer started on port: 5000
+2017-03-26 16:09:28,203 INFO [nioEventLoopGroup-3-1] o.m.mockserver.MockServerHandler [?:?] creating expectation:
 
 	{
 	  "httpRequest" : {
 	    "method" : "POST",
-	    "path" : "/api/deploys"
+	    "path" : "/api/builds"
 	  },
 	  "times" : {
 	    "remainingTimes" : 1,
@@ -48,12 +120,476 @@
 	      "name" : "Content-Type",
 	      "values" : [ "application/json; charset=utf-8" ]
 	    } ],
-	    "body" : "{\"message\": \"Deploy success\"}",
+	    "body" : "{ \"data\": \"v0.2.2-beta_1\" }",
 	    "delay" : {
 	      "timeUnit" : "SECONDS",
-	      "value" : 3
+	      "value" : 0
 	    }
 	  }
+	}
+
+
+2017-03-26 18:26:37,945 INFO [nioEventLoopGroup-3-2] o.m.mockserver.MockServerHandler [?:?] returning response:
+
+	{
+	  "statusCode" : 201,
+	  "headers" : [ {
+	    "name" : "Content-Type",
+	    "values" : [ "application/json; charset=utf-8" ]
+	  } ],
+	  "body" : "{ \"data\": \"v0.2.2-beta_1\" }"
+	}
+
+ for request:
+
+	{
+	  "method" : "POST",
+	  "path" : "/api/builds",
+	  "headers" : [ {
+	    "name" : "Host",
+	    "values" : [ "localhost:5000" ]
+	  }, {
+	    "name" : "User-Agent",
+	    "values" : [ "Go-http-client/1.1" ]
+	  }, {
+	    "name" : "Content-Length",
+	    "values" : [ "60" ]
+	  }, {
+	    "name" : "Cache-Control",
+	    "values" : [ "no-cache" ]
+	  }, {
+	    "name" : "Content-Type",
+	    "values" : [ "application/json" ]
+	  }, {
+	    "name" : "Accept-Encoding",
+	    "values" : [ "gzip" ]
+	  } ],
+	  "keepAlive" : true,
+	  "secure" : false,
+	  "body" : "{\n\t\"url\": \"http://javier.com:7000\",\n\t\"environment\": \"beta\"\n}"
+	}
+
+
+2017-03-26 18:27:14,331 INFO [nioEventLoopGroup-3-3] o.m.mockserver.MockServerHandler [?:?] creating expectation:
+
+	{
+	  "httpRequest" : {
+	    "method" : "POST",
+	    "path" : "/api/builds"
+	  },
+	  "times" : {
+	    "remainingTimes" : 1,
+	    "unlimited" : false
+	  },
+	  "timeToLive" : {
+	    "unlimited" : true
+	  },
+	  "httpResponse" : {
+	    "statusCode" : 201,
+	    "headers" : [ {
+	      "name" : "Content-Type",
+	      "values" : [ "application/json; charset=utf-8" ]
+	    } ],
+	    "body" : "{ \"data\": \"v0.2.2-beta_1\" }",
+	    "delay" : {
+	      "timeUnit" : "SECONDS",
+	      "value" : 0
+	    }
+	  }
+	}
+
+
+2017-03-26 18:27:18,554 INFO [nioEventLoopGroup-3-2] o.m.mockserver.MockServerHandler [?:?] returning response:
+
+	{
+	  "statusCode" : 201,
+	  "headers" : [ {
+	    "name" : "Content-Type",
+	    "values" : [ "application/json; charset=utf-8" ]
+	  } ],
+	  "body" : "{ \"data\": \"v0.2.2-beta_1\" }"
+	}
+
+ for request:
+
+	{
+	  "method" : "POST",
+	  "path" : "/api/builds",
+	  "headers" : [ {
+	    "name" : "Host",
+	    "values" : [ "localhost:5000" ]
+	  }, {
+	    "name" : "User-Agent",
+	    "values" : [ "Go-http-client/1.1" ]
+	  }, {
+	    "name" : "Content-Length",
+	    "values" : [ "60" ]
+	  }, {
+	    "name" : "Cache-Control",
+	    "values" : [ "no-cache" ]
+	  }, {
+	    "name" : "Content-Type",
+	    "values" : [ "application/json" ]
+	  }, {
+	    "name" : "Accept-Encoding",
+	    "values" : [ "gzip" ]
+	  } ],
+	  "keepAlive" : true,
+	  "secure" : false,
+	  "body" : "{\n\t\"url\": \"http://javier.com:7000\",\n\t\"environment\": \"beta\"\n}"
+	}
+
+
+2017-03-26 18:27:57,001 INFO [nioEventLoopGroup-3-4] o.m.mockserver.MockServerHandler [?:?] returning response:
+
+	{
+	  "statusCode" : 404
+	}
+
+ for request:
+
+	{
+	  "method" : "POST",
+	  "path" : "/api/builds",
+	  "headers" : [ {
+	    "name" : "Host",
+	    "values" : [ "localhost:5000" ]
+	  }, {
+	    "name" : "User-Agent",
+	    "values" : [ "Go-http-client/1.1" ]
+	  }, {
+	    "name" : "Content-Length",
+	    "values" : [ "60" ]
+	  }, {
+	    "name" : "Cache-Control",
+	    "values" : [ "no-cache" ]
+	  }, {
+	    "name" : "Content-Type",
+	    "values" : [ "application/json" ]
+	  }, {
+	    "name" : "Accept-Encoding",
+	    "values" : [ "gzip" ]
+	  } ],
+	  "keepAlive" : true,
+	  "secure" : false,
+	  "body" : "{\n\t\"url\": \"http://javier.com:7000\",\n\t\"environment\": \"beta\"\n}"
+	}
+
+
+2017-03-26 18:28:47,890 INFO [nioEventLoopGroup-3-5] o.m.mockserver.MockServerHandler [?:?] creating expectation:
+
+	{
+	  "httpRequest" : {
+	    "method" : "POST",
+	    "path" : "/api/builds"
+	  },
+	  "times" : {
+	    "remainingTimes" : 1,
+	    "unlimited" : false
+	  },
+	  "timeToLive" : {
+	    "unlimited" : true
+	  },
+	  "httpResponse" : {
+	    "statusCode" : 201,
+	    "headers" : [ {
+	      "name" : "Content-Type",
+	      "values" : [ "application/json; charset=utf-8" ]
+	    } ],
+	    "body" : "{ \"data\": \"v0.2.2-beta_1\" }",
+	    "delay" : {
+	      "timeUnit" : "SECONDS",
+	      "value" : 0
+	    }
+	  }
+	}
+
+
+2017-03-26 18:29:07,779 INFO [nioEventLoopGroup-3-6] o.m.mockserver.MockServerHandler [?:?] returning response:
+
+	{
+	  "statusCode" : 201,
+	  "headers" : [ {
+	    "name" : "Content-Type",
+	    "values" : [ "application/json; charset=utf-8" ]
+	  } ],
+	  "body" : "{ \"data\": \"v0.2.2-beta_1\" }"
+	}
+
+ for request:
+
+	{
+	  "method" : "POST",
+	  "path" : "/api/builds",
+	  "headers" : [ {
+	    "name" : "Host",
+	    "values" : [ "localhost:5000" ]
+	  }, {
+	    "name" : "User-Agent",
+	    "values" : [ "Go-http-client/1.1" ]
+	  }, {
+	    "name" : "Content-Length",
+	    "values" : [ "60" ]
+	  }, {
+	    "name" : "Cache-Control",
+	    "values" : [ "no-cache" ]
+	  }, {
+	    "name" : "Content-Type",
+	    "values" : [ "application/json" ]
+	  }, {
+	    "name" : "Accept-Encoding",
+	    "values" : [ "gzip" ]
+	  } ],
+	  "keepAlive" : true,
+	  "secure" : false,
+	  "body" : "{\n\t\"url\": \"http://javier.com:7000\",\n\t\"environment\": \"beta\"\n}"
+	}
+
+
+2017-03-26 18:30:18,517 INFO [MockServer thread for port: 5000] o.mockserver.mockserver.MockServer [?:?] MockServer started on port: 5000
+2017-03-26 18:30:23,186 INFO [nioEventLoopGroup-3-1] o.m.mockserver.MockServerHandler [?:?] creating expectation:
+
+	{
+	  "httpRequest" : {
+	    "method" : "POST",
+	    "path" : "/api/builds"
+	  },
+	  "times" : {
+	    "remainingTimes" : 1,
+	    "unlimited" : false
+	  },
+	  "timeToLive" : {
+	    "unlimited" : true
+	  },
+	  "httpResponse" : {
+	    "statusCode" : 201,
+	    "headers" : [ {
+	      "name" : "Content-Type",
+	      "values" : [ "application/json; charset=utf-8" ]
+	    } ],
+	    "body" : "{ \"data\": \"v0.2.2-beta_1\" }",
+	    "delay" : {
+	      "timeUnit" : "SECONDS",
+	      "value" : 0
+	    }
+	  }
+	}
+
+
+2017-03-26 18:30:28,861 INFO [nioEventLoopGroup-3-2] o.m.mockserver.MockServerHandler [?:?] returning response:
+
+	{
+	  "statusCode" : 201,
+	  "headers" : [ {
+	    "name" : "Content-Type",
+	    "values" : [ "application/json; charset=utf-8" ]
+	  } ],
+	  "body" : "{ \"data\": \"v0.2.2-beta_1\" }"
+	}
+
+ for request:
+
+	{
+	  "method" : "POST",
+	  "path" : "/api/builds",
+	  "headers" : [ {
+	    "name" : "Host",
+	    "values" : [ "localhost:5000" ]
+	  }, {
+	    "name" : "User-Agent",
+	    "values" : [ "Go-http-client/1.1" ]
+	  }, {
+	    "name" : "Content-Length",
+	    "values" : [ "60" ]
+	  }, {
+	    "name" : "Cache-Control",
+	    "values" : [ "no-cache" ]
+	  }, {
+	    "name" : "Content-Type",
+	    "values" : [ "application/json" ]
+	  }, {
+	    "name" : "Accept-Encoding",
+	    "values" : [ "gzip" ]
+	  } ],
+	  "keepAlive" : true,
+	  "secure" : false,
+	  "body" : "{\n\t\"url\": \"http://javier.com:7000\",\n\t\"environment\": \"beta\"\n}"
+	}
+
+
+2017-03-26 18:30:50,232 INFO [nioEventLoopGroup-3-2] o.m.mockserver.MockServerHandler [?:?] returning response:
+
+	{
+	  "statusCode" : 404
+	}
+
+ for request:
+
+	{
+	  "method" : "POST",
+	  "path" : "/api/builds",
+	  "headers" : [ {
+	    "name" : "Host",
+	    "values" : [ "localhost:5000" ]
+	  }, {
+	    "name" : "User-Agent",
+	    "values" : [ "Go-http-client/1.1" ]
+	  }, {
+	    "name" : "Content-Length",
+	    "values" : [ "60" ]
+	  }, {
+	    "name" : "Cache-Control",
+	    "values" : [ "no-cache" ]
+	  }, {
+	    "name" : "Content-Type",
+	    "values" : [ "application/json" ]
+	  }, {
+	    "name" : "Accept-Encoding",
+	    "values" : [ "gzip" ]
+	  } ],
+	  "keepAlive" : true,
+	  "secure" : false,
+	  "body" : "{\n\t\"url\": \"http://javier.com:7000\",\n\t\"environment\": \"beta\"\n}"
+	}
+
+
+2017-03-26 18:30:59,240 INFO [nioEventLoopGroup-3-3] o.m.mockserver.MockServerHandler [?:?] creating expectation:
+
+	{
+	  "httpRequest" : {
+	    "method" : "POST",
+	    "path" : "/api/builds"
+	  },
+	  "times" : {
+	    "remainingTimes" : 1,
+	    "unlimited" : false
+	  },
+	  "timeToLive" : {
+	    "unlimited" : true
+	  },
+	  "httpResponse" : {
+	    "statusCode" : 201,
+	    "headers" : [ {
+	      "name" : "Content-Type",
+	      "values" : [ "application/json; charset=utf-8" ]
+	    } ],
+	    "body" : "{ \"data\": \"v0.2.2-beta_1\" }",
+	    "delay" : {
+	      "timeUnit" : "SECONDS",
+	      "value" : 0
+	    }
+	  }
+	}
+
+
+2017-03-26 18:31:01,905 INFO [nioEventLoopGroup-3-2] o.m.mockserver.MockServerHandler [?:?] returning response:
+
+	{
+	  "statusCode" : 201,
+	  "headers" : [ {
+	    "name" : "Content-Type",
+	    "values" : [ "application/json; charset=utf-8" ]
+	  } ],
+	  "body" : "{ \"data\": \"v0.2.2-beta_1\" }"
+	}
+
+ for request:
+
+	{
+	  "method" : "POST",
+	  "path" : "/api/builds",
+	  "headers" : [ {
+	    "name" : "Host",
+	    "values" : [ "localhost:5000" ]
+	  }, {
+	    "name" : "User-Agent",
+	    "values" : [ "Go-http-client/1.1" ]
+	  }, {
+	    "name" : "Content-Length",
+	    "values" : [ "60" ]
+	  }, {
+	    "name" : "Cache-Control",
+	    "values" : [ "no-cache" ]
+	  }, {
+	    "name" : "Content-Type",
+	    "values" : [ "application/json" ]
+	  }, {
+	    "name" : "Accept-Encoding",
+	    "values" : [ "gzip" ]
+	  } ],
+	  "keepAlive" : true,
+	  "secure" : false,
+	  "body" : "{\n\t\"url\": \"http://javier.com:7000\",\n\t\"environment\": \"beta\"\n}"
+	}
+
+
+2017-03-26 18:32:15,749 INFO [nioEventLoopGroup-3-4] o.m.mockserver.MockServerHandler [?:?] creating expectation:
+
+	{
+	  "httpRequest" : {
+	    "method" : "POST",
+	    "path" : "/api/builds"
+	  },
+	  "times" : {
+	    "remainingTimes" : 1,
+	    "unlimited" : false
+	  },
+	  "timeToLive" : {
+	    "unlimited" : true
+	  },
+	  "httpResponse" : {
+	    "statusCode" : 201,
+	    "headers" : [ {
+	      "name" : "Content-Type",
+	      "values" : [ "application/json; charset=utf-8" ]
+	    } ],
+	    "body" : "{ \"data\": \"v0.2.2-beta_1\" }",
+	    "delay" : {
+	      "timeUnit" : "SECONDS",
+	      "value" : 0
+	    }
+	  }
+	}
+
+
+2017-03-26 18:32:17,508 INFO [nioEventLoopGroup-3-5] o.m.mockserver.MockServerHandler [?:?] returning response:
+
+	{
+	  "statusCode" : 201,
+	  "headers" : [ {
+	    "name" : "Content-Type",
+	    "values" : [ "application/json; charset=utf-8" ]
+	  } ],
+	  "body" : "{ \"data\": \"v0.2.2-beta_1\" }"
+	}
+
+ for request:
+
+	{
+	  "method" : "POST",
+	  "path" : "/api/builds",
+	  "headers" : [ {
+	    "name" : "Host",
+	    "values" : [ "localhost:5000" ]
+	  }, {
+	    "name" : "User-Agent",
+	    "values" : [ "Go-http-client/1.1" ]
+	  }, {
+	    "name" : "Content-Length",
+	    "values" : [ "60" ]
+	  }, {
+	    "name" : "Cache-Control",
+	    "values" : [ "no-cache" ]
+	  }, {
+	    "name" : "Content-Type",
+	    "values" : [ "application/json" ]
+	  }, {
+	    "name" : "Accept-Encoding",
+	    "values" : [ "gzip" ]
+	  } ],
+	  "keepAlive" : true,
+	  "secure" : false,
+	  "body" : "{\n\t\"url\": \"http://javier.com:7000\",\n\t\"environment\": \"beta\"\n}"
 	}
 
 

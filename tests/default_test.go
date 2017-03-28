@@ -6,7 +6,7 @@ import (
 	"testing"
 	"runtime"
 	"path/filepath"
-	_ "github.com/caballerojavier13/GoDepoyer/routers"
+	_ "github.com/BambuSolar/GoDepoyer/routers"
 
 	"github.com/astaxie/beego"
 	. "github.com/smartystreets/goconvey/convey"

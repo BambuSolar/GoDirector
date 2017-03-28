@@ -630,8 +630,8 @@ function CRUD (config) {
             },
             submitHandler: function(form) {
 
-                var data = JSON.stringify(self._getFormData(form));
-
+                var data = self.normalizeBodyRequest(JSON.stringify(self._getFormData(form)));
+                
                 var method = $(form).attr('method');
 
                 var url = $(form).attr('action');
@@ -662,6 +662,12 @@ function CRUD (config) {
             }
 
         });
+
+    };
+
+    this.normalizeBodyRequest = function(requestBody){
+
+        return requestBody.replace("\"true\"", "true").replace("\"false\"", "false");
 
     };
 
@@ -761,7 +767,28 @@ function CRUD (config) {
                 html_field += 'class="form-control" id="field' + item.field + '" placeholder="' + config_field.placeholder + '">';
                 html_field += '</div>';
 
-                break
+                break;
+            case 'checkbox':
+
+
+                html_field = '<div class="form-group">';
+
+                html_field += '<label for="field'+ item.field +'">' + config_field.label + '</label>';
+                html_field += '</div>';
+                html_field += '<div class="radio">';
+                html_field += '<label>';
+                html_field += '<input type="radio" name="' + item.field + '" value="true" checked>';
+                html_field += 'Yes';
+                html_field += '</label>';
+                html_field += '</div>';
+                html_field += '<div class="radio">';
+                html_field += '<label>';
+                html_field += '<input type="radio" name="' + item.field + '" value="false">';
+                html_field += 'No';
+                html_field += '</label>';
+                html_field += '</div>';
+
+                break;
         }
 
         return html_field;

@@ -29,3 +29,8 @@ func (c *StaticController) IndexDeploys() {
 	c.TplName = "static/deploys.tpl"
 }
 
+func (c *StaticController) IndexBuilds() {
+	c.Layout = "layout.tpl"
+	c.TplName = "static/builds.tpl"
+}
+
