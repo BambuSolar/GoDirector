@@ -41,27 +41,20 @@ func (c *BuildController) GetStatus() {
 
 func (c *BuildController) Post() {
 
-	/*
-	t := models.Task{
-
-		Type: "Build",
-		Status: "in_progress",
-		CurrentStep: 1,
-		StepQuantity: 2,
-		WaitingBuddy: false,
-	}
-
-	models.AddTask(&t)
-
 	result := map[string]interface{}{
 		"success": true,
-		"data": t,
 	}
-	*/
 
+	task, new_task := services.GetTaskManagerInstance().CreateBuild("build", 2)
 
+	data := map[string]interface{}{
+		"task": task,
+		"new_task": new_task,
+	}
 
-	c.Data["json"] = services.GetTaskManagerInstance().CreateBuild("build", 2)
+	result["data"] = data
+
+	c.Data["json"] = result
 
 	c.ServeJSON()
 }

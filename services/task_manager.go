@@ -61,9 +61,9 @@ func (tm *TaskManager) GetTasksStatus() (tasks []interface{}, err error) {
 
 }
 
-func (tm *TaskManager) CreateBuild(type_task string, number_steps int) (result *models.Task) {
+func (tm *TaskManager) CreateBuild(type_task string, number_steps int) (result *models.Task, new_task bool) {
 
-	result = nil
+	new_task = false
 
 	mu_create_task.Lock()
 
@@ -95,6 +95,8 @@ func (tm *TaskManager) CreateBuild(type_task string, number_steps int) (result *
 
 		result = &t
 
+		new_task = true
+
 		go(func() {
 
 			time.Sleep(60 * time.Second)
@@ -109,5 +111,5 @@ func (tm *TaskManager) CreateBuild(type_task string, number_steps int) (result *
 
 	mu_create_task.Unlock()
 
-	return result
+	return result, new_task
 }
