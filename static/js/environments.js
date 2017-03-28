@@ -24,6 +24,21 @@ $(function(){
                 }
             },
             {
+                field: "LongName",
+                options: {
+                    form: {
+                        type: "input:text",
+                        label: "Long Name",
+                        placeholder: "Long Name",
+                        autocomplete: false
+                    },
+                    rule: {
+                        required: true,
+                        minlength: 4
+                    }
+                }
+            },
+            {
                 field: "Version",
                 options: {
                     form: {
@@ -54,6 +69,15 @@ $(function(){
                 }
             },
             {
+                field: "AllowDirectDeploy",
+                options: {
+                    form: {
+                        type: "checkbox",
+                        label: "Allow Direct Deploy"
+                    }
+                }
+            },
+            {
                 field: "ServerUrl",
                 options: {
                     form: {
@@ -73,7 +97,7 @@ $(function(){
                 options: {
                     form: {
                         type: "input:text",
-                        label: "RootPath",
+                        label: "Root Path",
                         placeholder: "RootPath",
                         autocomplete: false
                     },
