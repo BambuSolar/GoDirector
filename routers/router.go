@@ -23,4 +23,6 @@ func init() {
 	beego.Router("/api/environments/:id", &controllers.EnvironmentController{}, "put:Put")
 	beego.Router("/api/environments/:id", &controllers.EnvironmentController{}, "delete:Delete")
 
+	beego.Router("/api/deploy2", &controllers.Deploy2Controller{}, "post:Post")
+
 }
