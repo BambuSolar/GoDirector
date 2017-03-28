@@ -23,3 +23,14 @@ func (c *StaticController) IndexEnvironments() {
 	c.Layout = "layout.tpl"
 	c.TplName = "static/environments.tpl"
 }
+
+func (c *StaticController) IndexDeploys() {
+	c.Layout = "layout.tpl"
+	c.TplName = "static/deploys.tpl"
+}
+
+func (c *StaticController) IndexBuilds() {
+	c.Layout = "layout.tpl"
+	c.TplName = "static/builds.tpl"
+}
+

@@ -10,14 +10,16 @@ import (
 )
 
 type Environment struct {
-	Id   int64  `orm:"auto"`
-	Name     string `orm:"type(varchar)" valid:"Required;MinSize(4);MaxSize(255)"`
-	Version  string `valid:"MinSize(5);MaxSize(255)"`
-	Branch  string `valid:"Required;MinSize(4);MaxSize(255)"`
-	ServerUrl  string `valid:"Required;MinSize(4);MaxSize(255)"`
-	FTPRootPath  string `orm:"column(ft_root_path)" valid:"Required;MinSize(4);MaxSize(255)"`
-	UserFTP  string `orm:"column(user_ftp)" valid:"Required;MinSize(4);MaxSize(255)"`
-	PasswordFTP  string `orm:"column(password_ftp)" valid:"Required;MinSize(8);MaxSize(255)"`
+	Id   	   		int64  `orm:"auto"`
+	Name         		string `orm:"type(varchar)" valid:"Required;MinSize(4);MaxSize(255)"`
+	LongName   		string `orm:"type(varchar)" valid:"Required;MinSize(4);MaxSize(255)"`
+	Version      		string `valid:"MinSize(5);MaxSize(255)"`
+	Branch       		string `valid:"Required;MinSize(4);MaxSize(255)"`
+	AllowDirectDeploy    	bool ``
+	ServerUrl    		string `valid:"Required;MinSize(4);MaxSize(255)"`
+	FTPRootPath 		string `orm:"column(ft_root_path)" valid:"Required;MinSize(4);MaxSize(255)"`
+	UserFTP      		string `orm:"column(user_ftp)" valid:"Required;MinSize(4);MaxSize(255)"`
+	PasswordFTP		string `orm:"column(password_ftp)" valid:"Required;MinSize(8);MaxSize(255)"`
 }
 
 func init() {

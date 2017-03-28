@@ -18,6 +18,7 @@ type Task struct {
 	CreateAt  time.Time
 	CurrentStep int
 	StepQuantity int
+	WaitingBuddy bool
 }
 
 func init() {

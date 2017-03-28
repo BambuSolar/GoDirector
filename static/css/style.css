@@ -113,3 +113,40 @@
           transform: scale3D(0, 0, 1);
       }
 }
+
+
+.deploy-step{
+    padding: 15px;
+    margin: 20px;
+    border-radius: 5px !important;
+}
+
+.deploy-step .deploy-step-number{
+    width: 62px;
+    position: relative;
+    float: left;
+    height: 62px;
+    line-height: 62px;
+    background: #2196f3;
+    left: -15px;
+    top: -15px;
+    border-radius: 3px 0 0 3px;
+    text-align: center;
+    color: white;
+}
+
+.list-group-item-success h4{
+    color: #4caf50;
+}
+
+.list-group-item-info{
+    background-color: #cae6fc;
+}
+
+.list-group-item-info h4{
+    color: #2196f3;
+}
+
+.list-group-item-danger h4{
+    color: #e51c23;
+}

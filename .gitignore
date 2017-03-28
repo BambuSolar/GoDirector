@@ -2,3 +2,4 @@
 .idea
 database/
 GoDirector
+/mocks/node_modules/
