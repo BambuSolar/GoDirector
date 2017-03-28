@@ -116,9 +116,21 @@
 
 
 .deploy-step{
+    position: relative;
     padding: 0;
     margin: 20px;
     border-radius: 5px !important;
+}
+
+.deploy-step .progress{
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0.3;
+
 }
 
 .deploy-step > h4{
