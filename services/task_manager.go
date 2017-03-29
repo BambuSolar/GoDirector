@@ -98,17 +98,23 @@ func (tm *TaskManager) CreateBuild(data models.Build, type_task string, number_s
 
 		go(func() {
 
+			slack := models.Slack{}
+
 			p_t := models.PythonTransformers{}
 
-			_, err := p_t.CreateBuild(data)
+			result, err := p_t.CreateBuild(data)
 
-			if (err != nil){
+			if (err == nil){
+
+				slack.BuildSuccess(result["data"].(string))
 
 				t.Status = "done"
 
 			}else{
 
 				t.Status = "error"
+
+				slack.BuildError()
 
 			}
 
