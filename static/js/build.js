@@ -103,18 +103,14 @@ var Build = (function () {
 
                         hideLoader();
 
-                        console.log(result);
-
-                        //self._successFormRequest(result, textStatus, xhr);
+                        checkRunningTask();
 
                     })
                     .fail(function( jqXHR, textStatus ){
 
                         hideLoader();
 
-
-
-                        //self._failFormRequest(jqXHR, textStatus );
+                        showErrorMessage('An error occurred', 'Please, try it again');
 
                     });
             }

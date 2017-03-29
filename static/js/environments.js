@@ -140,5 +140,5 @@ $(function(){
         ]
     });
 
-    environments.init()
+    environments.init();
 });
