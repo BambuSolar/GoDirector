@@ -32,6 +32,10 @@ func init() {
 
 	beego.Router("/api/builds", &controllers.BuildController{}, "post:Post")
 
-	beego.Router("/api/deploy2", &controllers.Deploy2Controller{}, "post:Post")
+	beego.Router("/api/deploys/status", &controllers.DeployController{}, "get:GetStatus")
+	beego.Router("/api/deploys/steps", &controllers.DeployController{}, "get:GetSteps")
+	beego.Router("/api/deploys/last", &controllers.DeployController{}, "get:GetLast")
+
+	beego.Router("/api/deploys", &controllers.DeployController{}, "post:Post")
 
 }

@@ -2,7 +2,6 @@ package services
 
 import (
 	"sync"
-	"fmt"
 	"github.com/BambuSolar/GoDirector/models"
 )
 
@@ -14,15 +13,11 @@ var instance *TaskManager
 
 var once sync.Once
 
-var once_create sync.Once
-
 var wg sync.WaitGroup
 
 var mu_get_info sync.Mutex
 
 var mu_create_task sync.Mutex
-
-var in_progress bool = false
 
 func GetTaskManagerInstance() *TaskManager{
 
@@ -34,13 +29,7 @@ func GetTaskManagerInstance() *TaskManager{
 
 }
 
-func (tm *TaskManager) GetHola(){
-
-	fmt.Println("Hola")
-
-}
-
-func (tm *TaskManager) GetTasksStatus() (tasks []interface{}, err error) {
+func (tm *TaskManager) GetTasksStatus(type_op string) (tasks []interface{}, err error) {
 
 	wg.Add(1)
 
@@ -48,6 +37,7 @@ func (tm *TaskManager) GetTasksStatus() (tasks []interface{}, err error) {
 
 	query := map[string]string{
 		"Status": "in_progress",
+		"Type": type_op,
 	}
 
 	mu_get_info.Lock()
@@ -70,7 +60,7 @@ func (tm *TaskManager) CreateBuild(data models.Build, type_task string, number_s
 		"Status": "in_progress",
 	}
 
-	tasks, _ := models.GetAllTask(query, nil,nil,nil,0,0)
+	tasks, _ := models.GetAllTask(query, nil,nil,nil,0,1)
 
 	if(tasks != nil){
 
@@ -114,6 +104,8 @@ func (tm *TaskManager) CreateBuild(data models.Build, type_task string, number_s
 
 				t.Status = "error"
 
+				t.StatusDetail = string(err.Error())
+
 				slack.BuildError()
 
 			}
@@ -127,4 +119,10 @@ func (tm *TaskManager) CreateBuild(data models.Build, type_task string, number_s
 	mu_create_task.Unlock()
 
 	return result, new_task
+}
+
+func (tm *TaskManager) CreateDeploy(data models.Deploy, type_task string, number_steps int) (result *models.Task, new_task bool) {
+
+	return nil, false
+
 }

@@ -18,11 +18,8 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-4 col-sm-4 col-xs-6">
+                        <div class="col-md-4 col-md-offset-8 col-xs-12">
                             <button type="submit" class="btn btn-primary btn-block">Build</button>
-                        </div>
-                        <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-6">
-                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
                 </form>

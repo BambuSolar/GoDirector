@@ -26,10 +26,15 @@
                 <li><a href="/system_parameters">System Parameters</a></li>
                 <li><a href="/environments">Environments</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Deploy <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Deploys <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/deploy">Deploys</a></li>
-                        <li><a href="/build">Builds</a></li>
+                        <li><a href="/deploy">Create Deploy</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Builds <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/build">Create Build</a></li>
                     </ul>
                 </li>
             </ul>

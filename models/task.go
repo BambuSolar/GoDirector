@@ -14,6 +14,7 @@ type Task struct {
 	Id   int64  `orm:"auto"`
 	Type     string `orm:"type(varchar)" valid:"Required;MinSize(4);MaxSize(255)"`
 	Status     string `orm:"type(varchar)" valid:"Required;MinSize(4);MaxSize(255)"`
+	StatusDetail     string `orm:"type(varchar)" valid:"MaxSize(255)"`
 	UpdateAt  time.Time
 	CreateAt  time.Time
 	CurrentStep int

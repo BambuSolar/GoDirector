@@ -14,13 +14,22 @@ type Build struct{
 	Url string
 }
 
+type Deploy struct{
+	Environment string
+	Version string
+}
+
 type PythonTransformers struct {}
+
+func getUrl() string{
+	//return "http://ec2-35-166-23-165.us-west-2.compute.amazonaws.com:5000"
+
+	return "http://localhost:5000"
+}
 
 func (self *PythonTransformers) GetAllVersions() (map[string]interface{} , error)  {
 
-	//url := "http://ec2-35-166-23-165.us-west-2.compute.amazonaws.com:5000"
-
-	url := "http://localhost:5000"
+	url := getUrl()
 
 	url += "/api/builds"
 
@@ -46,9 +55,7 @@ func (self *PythonTransformers) GetAllVersions() (map[string]interface{} , error
 
 func (self *PythonTransformers) CreateBuild(data Build) (map[string]interface{} , error)  {
 
-	//url := "http://ec2-35-166-23-165.us-west-2.compute.amazonaws.com:5000"
-
-	url := "http://localhost:5000"
+	url := getUrl()
 
 	url += "/api/builds"
 
@@ -72,23 +79,40 @@ func (self *PythonTransformers) CreateBuild(data Build) (map[string]interface{} 
 
 		json.Unmarshal(body, &f)
 
-		if ( f != nil ) {
+		if(res.StatusCode == 201){
 
-			m := f.(map[string]interface{})
+			if ( f != nil ) {
 
-			if ( m != nil ) {
+				m := f.(map[string]interface{})
 
-				return m, nil
+				if ( m != nil ) {
 
-			} else {
-				return nil, errors.New("PythonTransformers problem")
+					return m, nil
+
+				}
 
 			}
+
+			return nil, errors.New(res.Status)
+
 		}else{
 
-			return nil, errors.New("PythonTransformers problem")
+			if(f != nil ){
+
+				m := f.(map[string]interface{})
+
+				if (m["error"] != nil){
+
+				return nil, errors.New(m["error"].(string))
+
+				}
+
+			}
+
+			return nil, errors.New(res.Status)
 
 		}
+
 	}else{
 		return nil, errors.New("PythonTransformers problem")
 	}

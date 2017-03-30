@@ -101,16 +101,28 @@ var Build = (function () {
                 })
                     .done(function(result, textStatus, xhr){
 
+                        if(xhr.status == 201 && result.success && result.data.new_task){
+
+                            swal("Build", "Build successfully created", "success");
+
+                        }
+
                         hideLoader();
 
                         checkRunningTask();
 
                     })
-                    .fail(function( jqXHR, textStatus ){
+                    .fail(function( jqXHR ){
 
                         hideLoader();
 
-                        showErrorMessage('An error occurred', 'Please, try it again');
+                        if(jqXHR.status == 409){
+
+                            swal("Conflict", jqXHR.responseJSON.error, "warning");
+
+                        }else{
+                            showErrorMessage('An error occurred', 'Please, try it again');
+                        }
 
                     });
             }
@@ -267,7 +279,7 @@ var Build = (function () {
 
         checkRunningTask();
 
-        setInterval(function(){ checkRunningTask(); }, 30 * 1000);
+        setInterval(function(){ checkRunningTask(); }, 20 * 1000);
 
         getEnvironments();
 
