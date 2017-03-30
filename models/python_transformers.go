@@ -72,13 +72,20 @@ func (self *PythonTransformers) CreateBuild(data Build) (map[string]interface{} 
 
 		json.Unmarshal(body, &f)
 
-		m := f.(map[string]interface{})
+		if ( f != nil ) {
 
-		if ( m != nil ) {
+			m := f.(map[string]interface{})
 
-			return m, nil
+			if ( m != nil ) {
 
-		} else {
+				return m, nil
+
+			} else {
+				return nil, errors.New("PythonTransformers problem")
+
+			}
+		}else{
+
 			return nil, errors.New("PythonTransformers problem")
 
 		}

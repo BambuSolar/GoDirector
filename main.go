@@ -16,6 +16,7 @@ func init() {
 }
 
 func main() {
+
 	err := orm.RunSyncdb("default", false, false)
 	if err != nil {
 		beego.Error(err)

@@ -4,7 +4,6 @@ import (
 	"sync"
 	"fmt"
 	"github.com/BambuSolar/GoDirector/models"
-	"time"
 )
 
 type TaskManager struct {
@@ -61,7 +60,7 @@ func (tm *TaskManager) GetTasksStatus() (tasks []interface{}, err error) {
 
 }
 
-func (tm *TaskManager) CreateBuild(type_task string, number_steps int) (result *models.Task, new_task bool) {
+func (tm *TaskManager) CreateBuild(data models.Build, type_task string, number_steps int) (result *models.Task, new_task bool) {
 
 	new_task = false
 
@@ -99,11 +98,27 @@ func (tm *TaskManager) CreateBuild(type_task string, number_steps int) (result *
 
 		go(func() {
 
-			time.Sleep(60 * time.Second)
+			slack := models.Slack{}
 
-			fmt.Println("-------------------------------")
-			fmt.Println("Hola Javier")
-			fmt.Println("-------------------------------")
+			p_t := models.PythonTransformers{}
+
+			result, err := p_t.CreateBuild(data)
+
+			if (err == nil){
+
+				slack.BuildSuccess(result["data"].(string))
+
+				t.Status = "done"
+
+			}else{
+
+				t.Status = "error"
+
+				slack.BuildError()
+
+			}
+
+			models.UpdateTaskById(&t)
 
 		})()
 

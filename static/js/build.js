@@ -103,18 +103,14 @@ var Build = (function () {
 
                         hideLoader();
 
-                        console.log(result);
-
-                        //self._successFormRequest(result, textStatus, xhr);
+                        checkRunningTask();
 
                     })
                     .fail(function( jqXHR, textStatus ){
 
                         hideLoader();
 
-
-
-                        //self._failFormRequest(jqXHR, textStatus );
+                        showErrorMessage('An error occurred', 'Please, try it again');
 
                     });
             }
@@ -228,6 +224,11 @@ var Build = (function () {
             var step = '<li class="list-group-item deploy-step ' + class_step + '">';
             step += '<div class="deploy-step-number">' + ( index + 1 )+ '</div>';
             step += '<h4 class="list-group-item-heading">' + item + '</h4>';
+
+            if((task.CurrentStep == index + 1) && (task.Status == 'in_progress')){
+                step += '<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div>';
+            }
+
             step += '</li>';
 
             $('#progress-panel').find('.deploy-steps-list').append(step);
@@ -266,7 +267,7 @@ var Build = (function () {
 
         checkRunningTask();
 
-        setInterval(function(){ checkRunningTask(); }, 5 * 1000);
+        setInterval(function(){ checkRunningTask(); }, 30 * 1000);
 
         getEnvironments();
 

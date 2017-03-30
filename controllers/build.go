@@ -4,6 +4,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/BambuSolar/GoDirector/services"
 	"github.com/BambuSolar/GoDirector/models"
+	"encoding/json"
 )
 
 type BuildController struct {
@@ -99,7 +100,11 @@ func (c *BuildController) Post() {
 		"success": true,
 	}
 
-	task, new_task := services.GetTaskManagerInstance().CreateBuild("build", 1)
+	var build models.Build
+
+	json.Unmarshal(c.Ctx.Input.RequestBody, &build)
+
+	task, new_task := services.GetTaskManagerInstance().CreateBuild(build, "build", 1)
 
 	data := map[string]interface{}{
 		"task": task,

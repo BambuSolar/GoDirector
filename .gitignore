@@ -3,3 +3,5 @@
 database/
 GoDirector
 /mocks/node_modules/
+mocks/PythonTransformers/*.log
+mocks/PythonTransformers/mockserver.log
