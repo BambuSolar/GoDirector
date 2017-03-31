@@ -117,3 +117,7 @@ func (self *PythonTransformers) CreateBuild(data Build) (map[string]interface{} 
 		return nil, errors.New("PythonTransformers problem")
 	}
 }
+
+func (self *PythonTransformers) CreateDeploy(data Deploy) (map[string]interface{} , error)  {
+	return nil, errors.New("Not yet implmented")
+}

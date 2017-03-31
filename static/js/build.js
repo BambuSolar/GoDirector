@@ -2,6 +2,8 @@ var Build = (function () {
 
     var environmnents = {};
 
+    var steps = [];
+
     var getEnvironments = function () {
 
         showLoader();
@@ -170,25 +172,37 @@ var Build = (function () {
                         hideForm();
                     }
 
-                    var url = "/api/builds/steps";
+                    if(steps.length < 1){
 
-                    $.ajax({
-                        "url": url,
-                        "method": "GET",
-                        "contentType": "application/json"
-                    })
-                        .done(function(result, textStatus, xhr){
+                        var url = "/api/builds/steps";
 
-                            createSteps(task, result.data);
-
-                            hideLoader();
-
+                        $.ajax({
+                            "url": url,
+                            "method": "GET",
+                            "contentType": "application/json"
                         })
-                        .fail(function( jqXHR, textStatus ){
+                            .done(function(result){
 
-                            hideLoader();
+                                steps = result.data;
 
-                        });
+                                createSteps(task, steps);
+
+                                hideLoader();
+
+                            })
+                            .fail(function( ){
+
+                                hideLoader();
+
+                                showErrorMessage('An error occurred', 'Please, try it again');
+
+                            });
+
+                    }else{
+                        createSteps(task, steps);
+
+                        hideLoader();
+                    }
 
                 }else{
                     hideSteps();
@@ -198,6 +212,8 @@ var Build = (function () {
             .fail(function( jqXHR, textStatus ){
 
                 hideLoader();
+
+                showErrorMessage('An error occurred', 'Please, try it again');
 
             });
 

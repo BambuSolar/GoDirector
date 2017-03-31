@@ -49,3 +49,7 @@ func (self *Slack) BuildError()  {
 
 	http.DefaultClient.Do(req)
 }
+
+func (self *Slack) DeploySuccess()  {}
+
+func (self *Slack) DeployError()  {}
