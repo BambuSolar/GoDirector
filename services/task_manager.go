@@ -159,9 +159,9 @@ func (tm *TaskManager) CreateDeploy(data models.Deploy, type_task string, number
 
 		go(func() {
 
-			slack := models.Slack{}
+			slack := Slack{}
 
-			p_t := models.PythonTransformers{}
+			p_t := PythonTransformers{}
 
 			_, err := p_t.CreateDeploy(data)
 

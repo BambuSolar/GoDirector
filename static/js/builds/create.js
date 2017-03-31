@@ -4,6 +4,8 @@ var Build = (function () {
 
     var steps = [];
 
+    var taskId = '';
+
     var getEnvironments = function () {
 
         showLoader();
@@ -17,7 +19,7 @@ var Build = (function () {
             .done(function(result, textStatus, xhr){
 
                 $('#buildEnvironmentSelect')
-                    .empty()
+                    .empty();
 
                 $.each(result.data, function (index, item) {
 
@@ -105,7 +107,9 @@ var Build = (function () {
 
                         if(xhr.status == 201 && result.success && result.data.new_task){
 
-                            swal("Build", "Build successfully created", "success");
+                            swal("Info", "Build created", "info");
+
+                            taskId =  result.data.task.Id;
 
                         }
 
@@ -234,8 +238,20 @@ var Build = (function () {
                 }else{
                     if(task.Status == "error"){
                         class_step = 'list-group-item-danger';
+
+                        if(taskId != ''){
+                            swal("Error", "Build creation error", "error");
+                            taskId = '';
+                        }
+
                     }else{
                         class_step = 'list-group-item-success';
+
+                        if(taskId != ''){
+                            swal("Success", "Build successfully created", "success");
+                            taskId = '';
+                        }
+
                     }
                 }
 

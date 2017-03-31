@@ -108,6 +108,6 @@ func (self *PythonTransformers) CreateBuild(data models.Build) (map[string]inter
 	}
 }
 
-func (self *PythonTransformers) CreateDeploy(data Deploy) (map[string]interface{} , error)  {
+func (self *PythonTransformers) CreateDeploy(data models.Deploy) (map[string]interface{} , error)  {
 	return nil, errors.New("Not yet implmented")
 }
