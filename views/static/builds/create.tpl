@@ -40,4 +40,4 @@
 
 
 {{template "scripts.tpl"}}
-<script src="/static/js/build.js"></script>
+<script src="/static/js/builds/create.js"></script>
