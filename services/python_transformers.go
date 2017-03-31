@@ -1,5 +1,4 @@
-package models
-
+package services
 
 import (
 	"net/http"
@@ -7,17 +6,8 @@ import (
 	"encoding/json"
 	"strings"
 	"errors"
+	"github.com/BambuSolar/GoDirector/models"
 )
-
-type Build struct{
-	Environment string
-	Url string
-}
-
-type Deploy struct{
-	Environment string
-	Version string
-}
 
 type PythonTransformers struct {}
 
@@ -53,7 +43,7 @@ func (self *PythonTransformers) GetAllVersions() (map[string]interface{} , error
 
 }
 
-func (self *PythonTransformers) CreateBuild(data Build) (map[string]interface{} , error)  {
+func (self *PythonTransformers) CreateBuild(data models.Build) (map[string]interface{} , error)  {
 
 	url := getUrl()
 

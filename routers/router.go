@@ -11,8 +11,10 @@ func init() {
 
 	beego.Router("/system_parameters", &controllers.StaticController{}, "get:IndexSystemParameters")
 	beego.Router("/environments", &controllers.StaticController{}, "get:IndexEnvironments")
-	beego.Router("/deploy", &controllers.StaticController{}, "get:IndexDeploys")
-	beego.Router("/build", &controllers.StaticController{}, "get:IndexBuilds")
+	beego.Router("/deploys", &controllers.StaticController{}, "get:IndexDeploys")
+	beego.Router("/deploys/new", &controllers.StaticController{}, "get:CreateDeploys")
+	beego.Router("/builds", &controllers.StaticController{}, "get:IndexBuilds")
+	beego.Router("/builds/new", &controllers.StaticController{}, "get:CreateBuilds")
 
 	beego.Router("/api/system_parameters", &controllers.System_parametersController{}, "get:GetAll")
 	beego.Router("/api/system_parameters", &controllers.System_parametersController{}, "post:Post")

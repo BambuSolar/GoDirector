@@ -88,9 +88,9 @@ func (tm *TaskManager) CreateBuild(data models.Build, type_task string, number_s
 
 		go(func() {
 
-			slack := models.Slack{}
+			slack := Slack{}
 
-			p_t := models.PythonTransformers{}
+			p_t := PythonTransformers{}
 
 			result, err := p_t.CreateBuild(data)
 

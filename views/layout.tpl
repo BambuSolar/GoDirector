@@ -28,13 +28,15 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Deploys <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/deploy">Create Deploy</a></li>
+                        <li><a href="/deploys">List Deploys</a></li>
+                        <li><a href="/deploys/new">Create Deploy</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Builds <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/build">Create Build</a></li>
+                        <li><a href="/builds">List Builds</a></li>
+                        <li><a href="/builds/new">Create Build</a></li>
                     </ul>
                 </li>
             </ul>
