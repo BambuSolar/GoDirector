@@ -26,21 +26,21 @@ func (c *StaticController) IndexEnvironments() {
 
 func (c *StaticController) IndexDeploys() {
 	c.Layout = "layout.tpl"
-	c.TplName = "static/deploy/index.tpl"
+	c.TplName = "static/deploys/index.tpl"
 }
 
 func (c *StaticController) CreateDeploys() {
 	c.Layout = "layout.tpl"
-	c.TplName = "static/deploy/create.tpl"
+	c.TplName = "static/deploys/create.tpl"
 }
 
 func (c *StaticController) IndexBuilds() {
 	c.Layout = "layout.tpl"
-	c.TplName = "static/build/create.tpl"
+	c.TplName = "static/builds/index.tpl"
 }
 
 func (c *StaticController) CreateBuilds() {
 	c.Layout = "layout.tpl"
-	c.TplName = "static/build/create.tpl"
+	c.TplName = "static/builds/create.tpl"
 }
 

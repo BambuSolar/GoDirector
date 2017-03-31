@@ -4,6 +4,7 @@ $(function(){
         path: '/api/system_parameters',
         listTable: '#index-table',
         nameEntity: 'System Parameter',
+        operations: ['show','edit', 'delete', 'create'],
         rowTemplateToIndexTable: {
             columns: ['Key', 'Value']
         },

@@ -75,4 +75,4 @@
 
 
 {{template "scripts.tpl"}}
-<script src="/static/js/deploys.js"></script>
+<script src="/static/js/deploys/create.js"></script>

@@ -4,6 +4,7 @@ $(function(){
         path: '/api/environments',
         listTable: '#index-table',
         nameEntity: 'System Parameter',
+        operations: ['show','edit', 'delete', 'create'],
         rowTemplateToIndexTable: {
             columns: ['Name', 'Version', 'Branch']
         },
