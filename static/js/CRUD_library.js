@@ -296,7 +296,7 @@ function CRUD (config) {
             },
             function(){
 
-                var url = self.elementSelected;
+                var url = self.default_config.path + '/' + self.elementSelected;
 
                 showLoader();
 
@@ -333,7 +333,7 @@ function CRUD (config) {
 
     this._getItem = function (successCallback, failCallback) {
 
-        var url = self.elementSelected;
+        var url = self.default_config.path + '/' + self.elementSelected;
 
         showLoader();
 
@@ -457,7 +457,7 @@ function CRUD (config) {
 
                 $('#modal-form').find('form').attr('method', 'PUT');
 
-                var url = self.elementSelected;
+                var url = self.default_config.path + '/' + self.elementSelected;
 
                 $('#modal-form').find('form').attr('action', url);
 
