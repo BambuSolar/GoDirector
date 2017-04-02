@@ -4,6 +4,7 @@ $(function(){
         path: '/api/environments',
         listTable: '#index-table',
         nameEntity: 'System Parameter',
+        operations: ['show','edit', 'delete', 'create'],
         rowTemplateToIndexTable: {
             columns: ['Name', 'Version', 'Branch']
         },
@@ -65,6 +66,20 @@ $(function(){
                     rule: {
                         required: true,
                         minlength: 4
+                    }
+                }
+            },
+            {
+                field: "BuddyPipelineId",
+                options: {
+                    form: {
+                        type: "input:text",
+                        label: "Buddy Pipeline",
+                        placeholder: "Buddy Pipeline",
+                        autocomplete: false
+                    },
+                    rule: {
+                        required: true
                     }
                 }
             },
@@ -140,5 +155,5 @@ $(function(){
         ]
     });
 
-    environments.init()
+    environments.init();
 });

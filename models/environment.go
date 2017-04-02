@@ -15,7 +15,8 @@ type Environment struct {
 	LongName   		string `orm:"type(varchar)" valid:"Required;MinSize(4);MaxSize(255)"`
 	Version      		string `valid:"MinSize(5);MaxSize(255)"`
 	Branch       		string `valid:"Required;MinSize(4);MaxSize(255)"`
-	AllowDirectDeploy    	bool ``
+	BuddyPipelineId		string `valid:"Required"`
+	AllowDirectDeploy    	bool   ``
 	ServerUrl    		string `valid:"Required;MinSize(4);MaxSize(255)"`
 	FTPRootPath 		string `orm:"column(ft_root_path)" valid:"Required;MinSize(4);MaxSize(255)"`
 	UserFTP      		string `orm:"column(user_ftp)" valid:"Required;MinSize(4);MaxSize(255)"`

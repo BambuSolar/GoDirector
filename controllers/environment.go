@@ -43,6 +43,7 @@ func (c *EnvironmentController) Post() {
 		c.Ctx.Output.SetStatus(201)
 		result["data"] = v
 	} else {
+		c.Ctx.Output.SetStatus(403)
 		result["success"] = false
 		result["error"] = err.Error()
 	}

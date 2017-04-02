@@ -4,6 +4,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/BambuSolar/GoDirector/services"
 	"github.com/BambuSolar/GoDirector/models"
+	"encoding/json"
 )
 
 type BuildController struct {
@@ -41,7 +42,7 @@ func (c *BuildController) GetStatus() {
 		"success": true,
 	}
 
-	tasks, err := services.GetTaskManagerInstance().GetTasksStatus()
+	tasks, err := services.GetTaskManagerInstance().GetTasksStatus("build")
 
 	if(err != nil){
 		result["success"] = false
@@ -74,7 +75,11 @@ func (c *BuildController) GetLast() {
 
 	order = append(order, "desc")
 
-	tasks, err := models.GetAllTask(nil, nil, sortby, order, 0, 1 )
+	query := map[string]string{
+		"Type": "build",
+	}
+
+	tasks, err := models.GetAllTask(query, nil, sortby, order, 0, 1 )
 
 	if(err != nil){
 		result["success"] = false
@@ -99,16 +104,68 @@ func (c *BuildController) Post() {
 		"success": true,
 	}
 
-	task, new_task := services.GetTaskManagerInstance().CreateBuild("build", 1)
+	var build models.Build
 
-	data := map[string]interface{}{
-		"task": task,
-		"new_task": new_task,
+	json.Unmarshal(c.Ctx.Input.RequestBody, &build)
+
+	build.Status = "in_progress"
+
+	task, new_task := services.GetTaskManagerInstance().CreateBuild(build, "build", 1)
+
+	if (new_task) {
+
+		data := map[string]interface{}{
+			"task": task,
+			"new_task": new_task,
+		}
+
+		result["data"] = data
+
+		c.Data["json"] = result
+
+		c.Ctx.Output.SetStatus(201)
+
+		c.ServeJSON()
+
+	}else{
+
+		query := map[string]string{
+			"Status": "in_progress",
+		}
+
+		tasks, _ := models.GetAllTask(query, nil,nil,nil,0,1)
+
+		if(tasks[0].(models.Task).Type != "build"){
+
+			c.Ctx.Output.SetStatus(409)
+
+			result["success"] = false
+
+			result["error"] = "Deploy in progress"
+
+			c.Data["json"] = result
+
+			c.ServeJSON()
+
+
+		}else{
+
+			data := map[string]interface{}{
+				"task": task,
+				"new_task": new_task,
+			}
+
+			result["data"] = data
+
+			c.Data["json"] = result
+
+			c.Ctx.Output.SetStatus(201)
+
+			c.ServeJSON()
+
+		}
+
 	}
 
-	result["data"] = data
 
-	c.Data["json"] = result
-
-	c.ServeJSON()
 }

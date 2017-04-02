@@ -2,4 +2,4 @@
 .idea
 database/
 GoDirector
-/mocks/node_modules/
+/mocks/mock_PythonTransformers/node_modules/
