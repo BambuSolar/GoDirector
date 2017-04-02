@@ -1,6 +1,6 @@
 var Build = (function () {
 
-    var environmnents = {};
+    var environments = {};
 
     var steps = [];
 
@@ -23,7 +23,7 @@ var Build = (function () {
 
                 $.each(result.data, function (index, item) {
 
-                    environmnents[item.Name] = item;
+                    environments[item.Name] = item;
 
                     $('#buildEnvironmentSelect').append(
                         '<option value="' + item.Name + '">' + item.LongName + '</option>'
@@ -37,6 +37,7 @@ var Build = (function () {
             .fail(function( jqXHR, textStatus ){
 
                 hideLoader();
+
 
                 showErrorMessage('An error occurred', 'Please, try it again');
 
@@ -225,7 +226,7 @@ var Build = (function () {
 
     var createSteps = function (task, steps){
 
-        $('#progress-panel').find('.deploy-steps-list').empty();
+        $('#progress-panel').find('.build-steps-list').empty();
 
         $.each(steps, function (index, item) {
 
@@ -265,8 +266,8 @@ var Build = (function () {
 
             }
 
-            var step = '<li class="list-group-item deploy-step ' + class_step + '">';
-            step += '<div class="deploy-step-number">' + ( index + 1 )+ '</div>';
+            var step = '<li class="list-group-item build-step ' + class_step + '">';
+            step += '<div class="build-step-number">' + ( index + 1 )+ '</div>';
             step += '<h4 class="list-group-item-heading">' + item + '</h4>';
 
             if((task.CurrentStep == index + 1) && (task.Status == 'in_progress')){
@@ -275,7 +276,7 @@ var Build = (function () {
 
             step += '</li>';
 
-            $('#progress-panel').find('.deploy-steps-list').append(step);
+            $('#progress-panel').find('.build-steps-list').append(step);
 
         });
 

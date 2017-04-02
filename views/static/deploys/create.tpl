@@ -2,70 +2,47 @@
     <div class="container">
         <h1 class="page-header">Deploy Controller</h1>
 
-        <div class="panel panel-default">
+        <div class="panel panel-default" id="form-panel">
             <div class="panel-body">
 
-                <div class="row">
+                <form id="form-deploy">
 
-                    <div class="col-sm-4 col-xs-12">
-                        <div class="form-group">
-                            <label class="sr-only" for="environmentSelect">Environment</label>
-                            <select id="environmentSelect" class="form-control">
-                                <option value="-1"> -- Select an environment -- </option>
-                            </select>
-                        </div>
-                    </div>
+                    <div class="row">
 
-                    <div class="col-sm-4 col-xs-12">
-
-                        <div class="form-group">
-                            <label class="sr-only" for="versionSelect">Version</label>
-                            <select id="versionSelect" class="form-control">
-                                <option value="-1"> -- First select an environment -- </option>
-                            </select>
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label class="sr-only" for="deployEnvironmentSelect">Environment</label>
+                                <select id="deployEnvironmentSelect" class="form-control" name="Environment">
+                                    <option value=""> -- Select an environment -- </option>
+                                </select>
+                            </div>
                         </div>
 
-                    </div>
+                        <div class="col-sm-6 col-xs-12">
 
-                    <div class="col-sm-4 col-xs-12">
-                        <button type="button" class="btn btn-primary btn-block">Deploy</button>
-                    </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="deployVersionSelect">Version</label>
+                                <select id="deployVersionSelect" class="form-control" name="Version">
+                                    <option value=""> -- First select an environment -- </option>
+                                </select>
+                            </div>
 
-                </div>
+                        </div>
+
+                        <div class="col-md-4 col-md-offset-8 col-xs-12">
+                            <button type="submit" class="btn btn-primary btn-block">Deploy</button>
+                        </div>
+
+                    </div>
+                </form>
 
             </div>
         </div>
 
-        <div class="panel panel-default">
+        <div class="panel panel-default" id="progress-panel">
             <div class="panel-body">
 
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                        60%
-                    </div>
-                </div>
-
-                <ul class="list-group deploy-steps-list">
-
-                    <li class="list-group-item deploy-step list-group-item-success">
-                        <div class="deploy-step-number">
-                            1
-                        </div>
-
-                        <h4 class="list-group-item-heading">Deploy in environment Beta</h4>
-
-                    </li>
-
-                    <li class="list-group-item deploy-step list-group-item-info">
-                        <div class="deploy-step-number">
-                            2
-                        </div>
-
-                        <h4 class="list-group-item-heading">Test in environment Beta</h4>
-
-                    </li>
-
-                </ul>
+                <ul class="list-group deploy-steps-list"></ul>
 
             </div>
         </div>

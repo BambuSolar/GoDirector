@@ -101,10 +101,26 @@ func (c *DeployController) GetLast() {
 		result["success"] = false
 		result["error"] = err.Error()
 	}else{
+
 		if(tasks != nil){
-			result["data"] = tasks
+
+			deploys, err := models.GetAllDeploy(nil, nil, sortby, order, 0, 1 )
+
+			if(err != nil){
+				result["success"] = false
+				result["error"] = err.Error()
+			}else{
+				result["data"] = map[string]interface{}{
+					"task": tasks[0],
+					"deploy": deploys[0],
+				}
+			}
+
 		}else{
-			result["data"] = make([]interface{}, 0)
+			result["data"] = map[string]interface{}{
+				"task": map[string]interface{}{},
+				"deploy": map[string]interface{}{},
+			}
 		}
 	}
 
@@ -134,14 +150,62 @@ func (c *DeployController) Post() {
 
 	task, new_task := services.GetTaskManagerInstance().CreateDeploy(deploy, "deploy", step_quantity)
 
-	data := map[string]interface{}{
-		"task": task,
-		"new_task": new_task,
+	if (new_task) {
+
+		deploy.Status = "in_progress"
+
+		models.AddDeploy(&deploy)
+
+		data := map[string]interface{}{
+			"task": task,
+			"new_task": new_task,
+		}
+
+		result["data"] = data
+
+		c.Data["json"] = result
+
+		c.Ctx.Output.SetStatus(201)
+
+		c.ServeJSON()
+
+	}else{
+
+		query := map[string]string{
+			"Status": "in_progress",
+		}
+
+		tasks, _ := models.GetAllTask(query, nil,nil,nil,0,1)
+
+		if(tasks[0].(models.Task).Type != "deploy"){
+
+			c.Ctx.Output.SetStatus(409)
+
+			result["success"] = false
+
+			result["error"] = "Build in progress"
+
+			c.Data["json"] = result
+
+			c.ServeJSON()
+
+
+		}else{
+
+			data := map[string]interface{}{
+				"task": task,
+				"new_task": new_task,
+			}
+
+			result["data"] = data
+
+			c.Data["json"] = result
+
+			c.Ctx.Output.SetStatus(200)
+
+			c.ServeJSON()
+
+		}
+
 	}
-
-	result["data"] = data
-
-	c.Data["json"] = result
-
-	c.ServeJSON()
 }

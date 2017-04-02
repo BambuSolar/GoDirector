@@ -115,14 +115,14 @@
 }
 
 
-.deploy-step{
+.deploy-step, .build-step{
     position: relative;
     padding: 0;
     margin: 20px;
     border-radius: 5px !important;
 }
 
-.deploy-step .progress{
+.deploy-step .progress, .build-step .progress{
 
     position: absolute;
     left: 0;
@@ -133,7 +133,7 @@
 
 }
 
-.deploy-step > h4{
+.deploy-step > h4, .build-step > h4{
 
     line-height: 58px;
     padding: 0;
@@ -142,7 +142,7 @@
 
 }
 
-.deploy-step .deploy-step-number{
+.deploy-step .deploy-step-number, .build-step .build-step-number{
     width: 58px;
     position: relative;
     float: left;
@@ -161,7 +161,7 @@
     color: #4caf50;
 }
 
-.list-group-item-success .deploy-step-number{
+.list-group-item-success .deploy-step-number, .list-group-item-success .build-step-number{
     background: #4caf50;
 }
 
@@ -169,7 +169,7 @@
     background-color: #cae6fc;
 }
 
-.list-group-item-info  .deploy-step-number{
+.list-group-item-info  .deploy-step-number, .list-group-item-info  .build-step-number{
     background: #2196f3;
 }
 
@@ -181,6 +181,6 @@
     color: #e51c23;
 }
 
-.list-group-item-danger  .deploy-step-number{
+.list-group-item-danger  .deploy-step-number, .list-group-item-danger  .build-step-number{
      background: #e51c23;
  }

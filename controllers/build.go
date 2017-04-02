@@ -108,6 +108,8 @@ func (c *BuildController) Post() {
 
 	json.Unmarshal(c.Ctx.Input.RequestBody, &build)
 
+	build.Status = "in_progress"
+
 	task, new_task := services.GetTaskManagerInstance().CreateBuild(build, "build", 1)
 
 	if (new_task) {

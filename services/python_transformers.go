@@ -109,5 +109,65 @@ func (self *PythonTransformers) CreateBuild(data models.Build) (map[string]inter
 }
 
 func (self *PythonTransformers) CreateDeploy(data models.Deploy) (map[string]interface{} , error)  {
-	return nil, errors.New("Not yet implmented")
+	url := getUrl()
+
+	url += "/api/deploys"
+
+	payload := strings.NewReader("{\n\t\"version\": \"" + data.Version + "\",\n\t\"environment\": \"" + data.Environment + "\"\n}")
+
+	req, _ := http.NewRequest("POST", url, payload)
+
+	req.Header.Add("content-type", "application/json")
+
+	req.Header.Add("cache-control", "no-cache")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	if(res != nil){
+
+		defer res.Body.Close()
+
+		body, _ := ioutil.ReadAll(res.Body)
+
+		var f interface{}
+
+		json.Unmarshal(body, &f)
+
+		if(res.StatusCode == 201){
+
+			if ( f != nil ) {
+
+				m := f.(map[string]interface{})
+
+				if ( m != nil ) {
+
+					return m, nil
+
+				}
+
+			}
+
+			return nil, errors.New(res.Status)
+
+		}else{
+
+			if(f != nil ){
+
+				m := f.(map[string]interface{})
+
+				if (m["error"] != nil){
+
+					return nil, errors.New(m["error"].(string))
+
+				}
+
+			}
+
+			return nil, errors.New(res.Status)
+
+		}
+
+	}else{
+		return nil, errors.New("PythonTransformers problem")
+	}
 }

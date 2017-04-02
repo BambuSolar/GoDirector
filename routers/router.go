@@ -31,13 +31,15 @@ func init() {
 	beego.Router("/api/builds/status", &controllers.BuildController{}, "get:GetStatus")
 	beego.Router("/api/builds/steps", &controllers.BuildController{}, "get:GetSteps")
 	beego.Router("/api/builds/last", &controllers.BuildController{}, "get:GetLast")
-
 	beego.Router("/api/builds", &controllers.BuildController{}, "post:Post")
 
 	beego.Router("/api/deploys/status", &controllers.DeployController{}, "get:GetStatus")
 	beego.Router("/api/deploys/steps", &controllers.DeployController{}, "get:GetSteps")
 	beego.Router("/api/deploys/last", &controllers.DeployController{}, "get:GetLast")
-
 	beego.Router("/api/deploys", &controllers.DeployController{}, "post:Post")
+
+	beego.Router("/api/versions", &controllers.VersionController{}, "get:GetAll")
+
+	beego.Router("/api/notifications/buddy", &controllers.NotificationController{}, "post:Buddy")
 
 }

@@ -62,6 +62,8 @@ func (tm *TaskManager) CreateBuild(data models.Build, type_task string, number_s
 
 	tasks, _ := models.GetAllTask(query, nil,nil,nil,0,1)
 
+	models.AddBuild(&data)
+
 	if(tasks != nil){
 
 		task, ok := tasks[0].(models.Task)
@@ -100,6 +102,8 @@ func (tm *TaskManager) CreateBuild(data models.Build, type_task string, number_s
 
 				t.Status = "done"
 
+				data.Status = "successful"
+
 			}else{
 
 				t.Status = "error"
@@ -108,7 +112,11 @@ func (tm *TaskManager) CreateBuild(data models.Build, type_task string, number_s
 
 				slack.BuildError()
 
+				data.Status = "failed"
+
 			}
+
+			models.UpdateBuildById(&data)
 
 			models.UpdateTaskById(&t)
 
@@ -167,9 +175,26 @@ func (tm *TaskManager) CreateDeploy(data models.Deploy, type_task string, number
 
 			if (err == nil){
 
-				slack.DeploySuccess()
+				t.CurrentStep += 1
 
-				t.Status = "done"
+				models.UpdateTaskById(&t)
+
+				buddy := Buddy{}
+				buddy.environment = data.Environment
+
+				err := buddy.RunTest()
+
+				if(err != nil){
+					t.Status = "error"
+
+					t.StatusDetail = string(err.Error())
+
+					slack.DeployError()
+				}else{
+					t.WaitingBuddy = true
+				}
+
+				models.UpdateTaskById(&t)
 
 			}else{
 
@@ -179,9 +204,9 @@ func (tm *TaskManager) CreateDeploy(data models.Deploy, type_task string, number
 
 				slack.DeployError()
 
-			}
+				models.UpdateTaskById(&t)
 
-			models.UpdateTaskById(&t)
+			}
 
 		})()
 
@@ -190,5 +215,53 @@ func (tm *TaskManager) CreateDeploy(data models.Deploy, type_task string, number
 	mu_create_task.Unlock()
 
 	return result, new_task
+
+}
+
+func (tm *TaskManager) ContinueDeployFromBuddy(t *models.Task, deploy *models.Deploy, is_passed bool) {
+
+	slack := Slack{}
+
+	//p_t := PythonTransformers{}
+
+	if(is_passed){
+
+		t.WaitingBuddy = false
+
+		t.CurrentStep += 1
+
+		models.UpdateTaskById(t)
+
+		if(deploy.Environment == "beta"){
+
+			t.Status = "done"
+
+			models.UpdateTaskById(t)
+
+			deploy.Status = "successful"
+
+			models.UpdateDeployById(deploy)
+
+		}else{
+
+
+
+		}
+
+	}else{
+
+		deploy.Status = "error"
+
+		models.UpdateDeployById(deploy)
+
+		t.Status = "error"
+
+		t.StatusDetail = "Test failed"
+
+		models.UpdateTaskById(t)
+
+		slack.DeployError()
+
+	}
 
 }
