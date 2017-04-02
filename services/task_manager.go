@@ -171,7 +171,7 @@ func (tm *TaskManager) CreateDeploy(data models.Deploy, type_task string, number
 
 			p_t := PythonTransformers{}
 
-			_, err := p_t.CreateDeploy(data)
+			_, err := p_t.CreateDeploy(data.Version, "beta")
 
 			if (err == nil){
 
@@ -180,7 +180,7 @@ func (tm *TaskManager) CreateDeploy(data models.Deploy, type_task string, number
 				models.UpdateTaskById(&t)
 
 				buddy := Buddy{}
-				buddy.environment = data.Environment
+				buddy.environment = "beta"
 
 				err := buddy.RunTest()
 
@@ -222,15 +222,11 @@ func (tm *TaskManager) ContinueDeployFromBuddy(t *models.Task, deploy *models.De
 
 	slack := Slack{}
 
-	//p_t := PythonTransformers{}
+	gh := GitHub{}
 
 	if(is_passed){
 
 		t.WaitingBuddy = false
-
-		t.CurrentStep += 1
-
-		models.UpdateTaskById(t)
 
 		if(deploy.Environment == "beta"){
 
@@ -244,11 +240,111 @@ func (tm *TaskManager) ContinueDeployFromBuddy(t *models.Task, deploy *models.De
 
 		}else{
 
+			t.CurrentStep += 1
 
+			models.UpdateTaskById(t)
+
+			if(t.CurrentStep == 3){
+
+				gh_err := gh.CreateDraftRelease(deploy)
+
+				if(gh_err == nil){
+
+					t.CurrentStep += 1
+
+					models.UpdateTaskById(t)
+
+					p_t := PythonTransformers{}
+
+					_, p_t_err := p_t.CreateDeploy(deploy.Version, "prod")
+
+					if (p_t_err == nil){
+
+						t.CurrentStep += 1
+
+						models.UpdateTaskById(t)
+
+						buddy := Buddy{}
+						buddy.environment = "prod"
+
+						err := buddy.RunTest()
+
+						if(err != nil){
+
+							deploy.Status = "failed"
+
+							models.UpdateDeployById(deploy)
+
+							t.Status = "error"
+
+							t.StatusDetail = string(err.Error())
+
+							slack.DeployError()
+						}else{
+							t.WaitingBuddy = true
+						}
+
+						models.UpdateTaskById(t)
+
+					}else{
+
+						deploy.Status = "failed"
+
+						models.UpdateDeployById(deploy)
+
+						t.Status = "error"
+
+						t.StatusDetail = string(p_t_err.Error())
+
+						slack.DeployError()
+
+						models.UpdateTaskById(t)
+
+					}
+
+				}else{
+
+					deploy.Status = "failed"
+
+					models.UpdateDeployById(deploy)
+
+					t.Status = "error"
+
+					t.StatusDetail = string(gh_err.Error())
+
+					models.UpdateTaskById(t)
+
+					slack.DeployError()
+
+				}
+
+			}
+
+			if(t.CurrentStep == 6){
+
+				gh.UpdateRelease(deploy)
+
+				t.Status = "done"
+
+				models.UpdateTaskById(t)
+
+				deploy.Status = "successful"
+
+				models.UpdateDeployById(deploy)
+
+				slack.DeploySuccess()
+
+			}
 
 		}
 
 	}else{
+
+		if(t.CurrentStep == 5){
+
+			gh.DeleteRelease(deploy)
+
+		}
 
 		deploy.Status = "error"
 

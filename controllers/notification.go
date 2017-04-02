@@ -5,7 +5,6 @@ import (
 	"github.com/BambuSolar/GoDirector/services"
 	"github.com/BambuSolar/GoDirector/models"
 	"encoding/json"
-	"fmt"
 )
 
 type NotificationController struct {
@@ -21,8 +20,6 @@ func (c *NotificationController) Buddy() {
 	var test_result services.BuddyTestResult
 
 	json.Unmarshal(c.Ctx.Input.RequestBody, &test_result)
-
-	fmt.Println(test_result)
 
 	go (func() {
 
@@ -42,11 +39,21 @@ func (c *NotificationController) Buddy() {
 
 		deploy, _ := deploys[0].(models.Deploy)
 
-		if(deploy.Environment == test_result.Environment){
+		if( task.CurrentStep == 2 && test_result.Environment == "beta"){
 
 			status := test_result.Status == "SUCCESSFUL"
 
 			services.GetTaskManagerInstance().ContinueDeployFromBuddy(&task, &deploy, status)
+
+		}else{
+
+			if( task.CurrentStep == 5 && test_result.Environment == "prod"){
+
+				status := test_result.Status == "SUCCESSFUL"
+
+				services.GetTaskManagerInstance().ContinueDeployFromBuddy(&task, &deploy, status)
+
+			}
 
 		}
 

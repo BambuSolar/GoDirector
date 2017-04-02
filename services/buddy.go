@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strings"
 	"errors"
+	"github.com/BambuSolar/GoDirector/models"
 )
 
 type Buddy struct {
@@ -21,19 +22,21 @@ type BuddyTestResult struct{
 
 func (self *Buddy) getPipelineId() string{
 
-	if(self.environment == "beta"){
-
-		return "45657"
-
-	}else{
-		if(self.environment == "prod"){
-
-			return "47533"
-
-		}
+	query := map[string]string{
+		"name": self.environment,
 	}
 
-	return ""
+	environments, _ := models.GetAllEnvironment(query, nil,nil,nil,0,1)
+
+	if(environments != nil) {
+
+		environment, _ := environments[0].(models.Environment)
+
+		return environment.BuddyPipelineId
+
+	}else{
+		return ""
+	}
 
 }
 

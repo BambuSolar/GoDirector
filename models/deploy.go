@@ -15,6 +15,7 @@ type Deploy struct{
 	Environment string `orm:"type(varchar)" valid:"Required;MaxSize(255)"`
 	Version string `orm:"type(varchar)" valid:"Required;MaxSize(255)"`
 	Status string `orm:"type(varchar)" valid:"Required;MaxSize(255)"`
+	ReleaseIdGitHub string
 	CreateAt  time.Time
 }
 

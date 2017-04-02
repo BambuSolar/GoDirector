@@ -70,6 +70,20 @@ $(function(){
                 }
             },
             {
+                field: "BuddyPipelineId",
+                options: {
+                    form: {
+                        type: "input:text",
+                        label: "Buddy Pipeline",
+                        placeholder: "Buddy Pipeline",
+                        autocomplete: false
+                    },
+                    rule: {
+                        required: true
+                    }
+                }
+            },
+            {
                 field: "AllowDirectDeploy",
                 options: {
                     form: {

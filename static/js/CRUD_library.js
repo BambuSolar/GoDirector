@@ -124,7 +124,7 @@ function CRUD (config) {
 
         showLoader();
 
-        var url = 'http://' + window.location.host + self.default_config.path;
+        var url = self.default_config.path;
 
         var pagination = 'limit=' + self.pagination.limit + '&offset=' + self.pagination.offset;
 
@@ -296,7 +296,7 @@ function CRUD (config) {
             },
             function(){
 
-                var url = 'http://' + window.location.host + self.default_config.path + '/' + self.elementSelected;
+                var url = self.elementSelected;
 
                 showLoader();
 
@@ -333,7 +333,7 @@ function CRUD (config) {
 
     this._getItem = function (successCallback, failCallback) {
 
-        var url = 'http://' + window.location.host + self.default_config.path + '/' + self.elementSelected;
+        var url = self.elementSelected;
 
         showLoader();
 
@@ -457,7 +457,7 @@ function CRUD (config) {
 
                 $('#modal-form').find('form').attr('method', 'PUT');
 
-                var url = 'http://' + window.location.host + self.default_config.path + '/' + self.elementSelected;
+                var url = self.elementSelected;
 
                 $('#modal-form').find('form').attr('action', url);
 
@@ -480,7 +480,7 @@ function CRUD (config) {
 
             $('#modal-form').find('form').attr('method', 'POST');
 
-            var url = 'http://' + window.location.host + self.default_config.path;
+            var url = self.default_config.path;
 
             $('#modal-form').find('form').attr('action', url);
 

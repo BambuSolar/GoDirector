@@ -30,11 +30,12 @@ func (c *DeployController) GetSteps() {
 	prod_data = append(prod_data, "Create Deploy in Beta")
 	prod_data = append(prod_data, "Testing Deploy in Beta")
 
-	prod_data = append(prod_data, "Creating Release in GitHub")
-	prod_data = append(prod_data, "Updating Code in Server")
+	prod_data = append(prod_data, "Creating Release Draft in GitHub")
 
 	prod_data = append(prod_data, "Create Deploy in Production")
 	prod_data = append(prod_data, "Testing Deploy in Production")
+
+	prod_data = append(prod_data, "Updating Release in GitHub")
 
 	data := map[string]interface{}{
 		"beta": beta_data,

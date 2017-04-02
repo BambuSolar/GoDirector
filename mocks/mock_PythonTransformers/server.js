@@ -24,27 +24,17 @@ router.get('/builds', function(req, res) {
     res.json(
         {
             "beta": [
-                "v0.0.1-beta_1",
-                "v0.0.1-beta_2",
-                "v0.0.1-beta_3",
-                "v0.0.2-beta_1",
-                "v0.0.3-beta_1",
-                "v0.1.1-beta_1",
-                "v0.2.1-beta_1"
+                "v0.0.1-beta_1"
             ],
             "prod": [
-                "v0.0.1",
-                "v0.0.2",
-                "v0.0.3",
-                "v0.1.1",
-                "v0.2.1"
-            ],
-            "staging": []
+                "v0.0.1-beta_1"
+            ]
         }
     );
 });
 
 router.post('/deploys', function(req, res) {
+    //console.log(req.body);
     res.status(201).json({"message": "Deploy success"});
 });
 

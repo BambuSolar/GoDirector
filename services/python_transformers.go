@@ -12,9 +12,8 @@ import (
 type PythonTransformers struct {}
 
 func getUrl() string{
-	//return "http://ec2-35-166-23-165.us-west-2.compute.amazonaws.com:5000"
 
-	return "http://localhost:5000"
+	return "http://ec2-35-166-23-165.us-west-2.compute.amazonaws.com:5000"
 }
 
 func (self *PythonTransformers) GetAllVersions() (map[string]interface{} , error)  {
@@ -108,12 +107,13 @@ func (self *PythonTransformers) CreateBuild(data models.Build) (map[string]inter
 	}
 }
 
-func (self *PythonTransformers) CreateDeploy(data models.Deploy) (map[string]interface{} , error)  {
+func (self *PythonTransformers) CreateDeploy(version string, environment string) (map[string]interface{} , error)  {
+
 	url := getUrl()
 
 	url += "/api/deploys"
 
-	payload := strings.NewReader("{\n\t\"version\": \"" + data.Version + "\",\n\t\"environment\": \"" + data.Environment + "\"\n}")
+	payload := strings.NewReader("{\n\t\"version\": \"" + version + "\",\n\t\"environment\": \"" + environment + "\"\n}")
 
 	req, _ := http.NewRequest("POST", url, payload)
 
