@@ -31,30 +31,37 @@ func (c *NotificationController) Buddy() {
 
 		order = append(order, "desc")
 
-		tasks, _ := models.GetAllTask(nil, nil, sortby, order, 0, 1 )
+		query := map[string]string{
+			"Status": "in_progress",
+		}
 
-		task, _ := tasks[0].(models.Task)
+		tasks, _ := models.GetAllTask(query, nil, sortby, order, 0, 1 )
 
-		deploys, _ := models.GetAllDeploy(nil, nil, sortby, order, 0, 1 )
+		if(tasks != nil){
 
-		deploy, _ := deploys[0].(models.Deploy)
+			task, _ := tasks[0].(models.Task)
 
-		if( task.CurrentStep == 2 && test_result.Environment == "beta"){
+			deploys, _ := models.GetAllDeploy(nil, nil, sortby, order, 0, 1 )
 
-			status := test_result.Status == "SUCCESSFUL"
+			deploy, _ := deploys[0].(models.Deploy)
 
-			services.GetTaskManagerInstance().ContinueDeployFromBuddy(&task, &deploy, status)
-
-		}else{
-
-			if( task.CurrentStep == 5 && test_result.Environment == "prod"){
+			if( task.CurrentStep == 2 && test_result.Environment == "beta"){
 
 				status := test_result.Status == "SUCCESSFUL"
 
 				services.GetTaskManagerInstance().ContinueDeployFromBuddy(&task, &deploy, status)
 
-			}
+			}else{
 
+				if( task.CurrentStep == 5 && test_result.Environment == "prod"){
+
+					status := test_result.Status == "SUCCESSFUL"
+
+					services.GetTaskManagerInstance().ContinueDeployFromBuddy(&task, &deploy, status)
+
+				}
+
+			}
 		}
 
 	})()

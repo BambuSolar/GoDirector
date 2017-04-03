@@ -8,6 +8,51 @@ $(function(){
         rowTemplateToIndexTable: {
             columns: ['Name', 'Version', 'Branch']
         },
+        parseFields:{
+            "Name": {
+                "value": function (env) {
+                    return toTitleCase(env);
+                }
+            },
+            "Branch": {
+                "value": function (env) {
+                    return toTitleCase(env);
+                }
+            },
+            "BuddyPipelineId":{
+                "key": function () {
+                    return "Buddy Pipeline";
+                }
+            },
+            "AllowDirectDeploy":{
+                "key": function () {
+                    return "Allow Direct Deploy";
+                }
+            },
+            "ServerUrl":{
+                "key": function () {
+                    return "Server";
+                },
+                "value": function (url) {
+
+                    if(!url.includes("http://")){
+                        url = "http://" + url;
+                    }
+
+                    return '<a href="' + url + '" target="_blank">' + url + '</a>';
+                }
+            },
+            "UserFTP":{
+                "key": function () {
+                    return "User";
+                }
+            },
+            "PasswordFTP":{
+                "key": function () {
+                    return "Password";
+                }
+            }
+        },
         formFields: [
             {
                 field: "Name",

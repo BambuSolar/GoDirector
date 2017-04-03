@@ -51,10 +51,19 @@ var Deploy = (function () {
 
         $.each(versions[environment], function (index, item) {
 
-            $('#deployVersionSelect')
-                .append('<option value="' + item + '">' + item + '</option>');
+            if(environments[environment].Version == item){
+                $('#deployVersionSelect')
+                    .append('<option value="' + item + '">' + item + '(current)</option>');
+            }else{
+                $('#deployVersionSelect')
+                    .append('<option value="' + item + '">' + item + '</option>');
+            }
 
         });
+
+        var options = $('#deployVersionSelect').find("option");
+
+        $(options[versions[environment].length - 1]).attr('selected','selected');
 
     };
 
