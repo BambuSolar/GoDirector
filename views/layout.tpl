@@ -24,8 +24,6 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/system_parameters">System Parameters</a></li>
-                <li><a href="/environments">Environments</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Deploys <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -38,6 +36,13 @@
                     <ul class="dropdown-menu">
                         <li><a href="/builds">List Builds</a></li>
                         <li><a href="/builds/new">Create Build</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Configurations <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/system_parameters">System Parameters</a></li>
+                        <li><a href="/environments">Environments</a></li>
                     </ul>
                 </li>
             </ul>
