@@ -22,8 +22,6 @@ func (c *NotificationController) Buddy() {
 
 	json.Unmarshal(c.Ctx.Input.RequestBody, &test_result)
 
-	fmt.Println(test_result)
-
 	go (func() {
 
 		sortby := []string{}
