@@ -20,9 +20,9 @@ func (c *NotificationController) Buddy() {
 
 	var test_result services.BuddyTestResult
 
-	fmt.Println(c.Ctx.Input.RequestBody)
-
 	json.Unmarshal(c.Ctx.Input.RequestBody, &test_result)
+
+	fmt.Println(test_result)
 
 	go (func() {
 
