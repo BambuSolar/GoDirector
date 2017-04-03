@@ -5,7 +5,6 @@ import (
 	"github.com/BambuSolar/GoDirector/services"
 	"github.com/BambuSolar/GoDirector/models"
 	"encoding/json"
-	"fmt"
 )
 
 type NotificationController struct {
