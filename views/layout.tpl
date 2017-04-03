@@ -20,7 +20,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">GoDirector</a>
+            <a class="navbar-brand" href="/" style="min-width: 200px">
+                <img alt="Brand" src="static/img/icon.png" height="20px" style="float: left; margin-right: 10px; display: inline;">
+                GoDirector
+            </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
