@@ -312,7 +312,7 @@ var Build = (function () {
 
         checkRunningTask();
 
-        setInterval(function(){ checkRunningTask(); }, 20 * 1000);
+        setInterval(function(){ checkRunningTask(); }, 30 * 1000);
 
         getEnvironments();
 

@@ -350,7 +350,7 @@ var Deploy = (function () {
 
         checkRunningTask();
 
-        setInterval(function(){ checkRunningTask(); }, 5 * 1000);
+        setInterval(function(){ checkRunningTask(); }, 30 * 1000);
 
         getEnvironments();
 

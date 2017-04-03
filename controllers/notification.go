@@ -5,6 +5,7 @@ import (
 	"github.com/BambuSolar/GoDirector/services"
 	"github.com/BambuSolar/GoDirector/models"
 	"encoding/json"
+	"fmt"
 )
 
 type NotificationController struct {
@@ -18,6 +19,8 @@ func (c *NotificationController) URLMapping() {
 func (c *NotificationController) Buddy() {
 
 	var test_result services.BuddyTestResult
+
+	fmt.Println(c.Ctx.Input.RequestBody)
 
 	json.Unmarshal(c.Ctx.Input.RequestBody, &test_result)
 
