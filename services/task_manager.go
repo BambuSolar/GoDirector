@@ -98,7 +98,9 @@ func (tm *TaskManager) CreateBuild(data models.Build, type_task string, number_s
 
 			if (err == nil){
 
-				slack.BuildSuccess(result["data"].(string))
+				version := result["data"].(string)
+
+				slack.BuildSuccess(version)
 
 				t.Status = "done"
 
@@ -174,6 +176,18 @@ func (tm *TaskManager) CreateDeploy(data models.Deploy, type_task string, number
 			_, err := p_t.CreateDeploy(data.Version, "beta")
 
 			if (err == nil){
+
+				query := map[string]string{
+					"Name": "beta",
+				}
+
+				environments, _ := models.GetAllEnvironment(query, nil, nil, nil, 0, 1 )
+
+				env_beta, _ := environments[0].(models.Environment)
+
+				env_beta.Version = data.Version
+
+				models.UpdateEnvironmentById(&env_beta)
 
 				t.CurrentStep += 1
 
@@ -259,6 +273,18 @@ func (tm *TaskManager) ContinueDeployFromBuddy(t *models.Task, deploy *models.De
 					_, p_t_err := p_t.CreateDeploy(deploy.Version, "prod")
 
 					if (p_t_err == nil){
+
+						query := map[string]string{
+							"Name": "prod",
+						}
+
+						environments, _ := models.GetAllEnvironment(query, nil, nil, nil, 0, 1 )
+
+						env_prod, _ := environments[0].(models.Environment)
+
+						env_prod.Version = deploy.Version
+
+						models.UpdateEnvironmentById(&env_prod)
 
 						t.CurrentStep += 1
 

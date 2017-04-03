@@ -19,13 +19,9 @@ function CRUD (config) {
         nameEntity: '',
         rowTemplateToIndexTable: {
             numberRow: false,
-            columns: [],
-            operations: {
-                view: true,
-                edit: true,
-                delete: true
-            }
-        }
+            columns: []
+        },
+        parseFields:{}
     };
 
     this.init = function () {
@@ -37,8 +33,6 @@ function CRUD (config) {
         jQuery.extend(self.default_config, self.config);
 
         jQuery.extend(self.default_config.rowTemplateToIndexTable, rowTemplateToIndexTable);
-
-
 
         var table = self.default_config.listTable;
 
@@ -157,9 +151,19 @@ function CRUD (config) {
 
         row += '<td>' + (index + 1) + '</td>';
 
+        var parseFields = self.default_config.parseFields;
+
         $.each(config.columns, function ( _ , c) {
 
-            row += '<td>' + item[c] + '</td>';
+            var value = item[c];
+
+            if(parseFields[c]){
+                if(parseFields[c]["value"]){
+                    value = parseFields[c]["value"](value);
+                }
+            }
+
+            row += '<td>' +value + '</td>';
 
         });
 
@@ -167,19 +171,19 @@ function CRUD (config) {
 
         operations += '<div class="btn-group" role="group">';
 
-        if(config.operations.view){
+        if(self.default_config.operations.includes("show")){
 
             operations += '<button class="btn btn-info show-item" type="button" data-id="' + item.Id + '"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></button> ';
 
         }
 
-        if(config.operations.edit){
+        if(self.default_config.operations.includes("edit")){
 
             operations += '<button class="btn btn-primary edit-item" type="button" data-id="' + item.Id + '"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button> ';
 
         }
 
-        if(config.operations.delete){
+        if(self.default_config.operations.includes("delete")){
 
             operations += '<button class="btn btn-danger delete-item" type="button" data-id="' + item.Id + '"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button> ';
 
@@ -415,6 +419,8 @@ function CRUD (config) {
 
         self.elementSelected = $(element).attr('data-id');
 
+        var parseFields = self.default_config.parseFields;
+
         self._getItem(function(data){
 
             var body = '';
@@ -422,7 +428,20 @@ function CRUD (config) {
             body += '<ul class="list-group">';
             for (var key in data) {
                 if (key != 'Id') {
-                    body += '<li class="list-group-item"><strong>' + key + '</strong>: ' + data[key] + '</li>';
+
+                    var label = key;
+
+                    var value = data[key];
+
+                    if(parseFields[key]){
+                        if(parseFields[key]["key"]){
+                            label = parseFields[key]["key"](key);
+                        }
+                        if(parseFields[key]["value"]){
+                            value = parseFields[key]["value"](value);
+                        }
+                    }
+                    body += '<li class="list-group-item"><strong>' + label + '</strong>: ' + value + '</li>';
                 }
             }
             body += '</ul>';
