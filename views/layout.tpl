@@ -46,6 +46,34 @@
                     <ul class="dropdown-menu">
                         <li><a href="/system_parameters">System Parameters</a></li>
                         <li><a href="/environments">Environments</a></li>
+                        <li><a href="/users">Users</a></li>
+                        <li><a href="/applications">Applications</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        {{.Userinfo.FullName}} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modify User Data
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Change Password
+                            </a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li>
+                            <a href="/logout">
+                                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>

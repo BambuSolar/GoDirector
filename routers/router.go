@@ -9,8 +9,15 @@ func init() {
 
 	beego.Router("/", &controllers.StaticController{}, "get:Landing")
 
+	beego.Router("/login", &controllers.SessionController{}, "get,post:Login")
+	beego.Router("/logout", &controllers.SessionController{}, "get:Logout")
+	beego.Router("/signup", &controllers.SessionController{}, "get,post:Signup")
+
 	beego.Router("/system_parameters", &controllers.StaticController{}, "get:IndexSystemParameters")
 	beego.Router("/environments", &controllers.StaticController{}, "get:IndexEnvironments")
+	beego.Router("/users", &controllers.StaticController{}, "get:IndexUsers")
+	beego.Router("/applications", &controllers.StaticController{}, "get:IndexApplications")
+
 	beego.Router("/deploys", &controllers.StaticController{}, "get:IndexDeploys")
 	beego.Router("/deploys/new", &controllers.StaticController{}, "get:CreateDeploys")
 	beego.Router("/builds", &controllers.StaticController{}, "get:IndexBuilds")
@@ -27,6 +34,15 @@ func init() {
 	beego.Router("/api/environments/:id", &controllers.EnvironmentController{}, "get:GetOne")
 	beego.Router("/api/environments/:id", &controllers.EnvironmentController{}, "put:Put")
 	beego.Router("/api/environments/:id", &controllers.EnvironmentController{}, "delete:Delete")
+
+	beego.Router("/api/applications", &controllers.ApplicationController{}, "get:GetAll")
+	beego.Router("/api/applications", &controllers.ApplicationController{}, "post:Post")
+	beego.Router("/api/applications/:id", &controllers.ApplicationController{}, "get:GetOne")
+	beego.Router("/api/applications/:id", &controllers.ApplicationController{}, "put:Put")
+	beego.Router("/api/applications/:id", &controllers.ApplicationController{}, "delete:Delete")
+
+	beego.Router("/api/users", &controllers.UserController{}, "get:GetAll")
+	beego.Router("/api/users/:id", &controllers.UserController{}, "delete:Delete")
 
 	beego.Router("/api/builds/status", &controllers.BuildController{}, "get:GetStatus")
 	beego.Router("/api/builds/steps", &controllers.BuildController{}, "get:GetSteps")
