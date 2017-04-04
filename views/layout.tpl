@@ -21,7 +21,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/" style="min-width: 200px">
-                <img alt="Brand" src="static/img/icon.png" height="20px" style="float: left; margin-right: 10px; display: inline;">
+                <img alt="Brand" src="/static/img/icon.png" height="20px" style="float: left; margin-right: 10px; display: inline;">
                 GoDirector
             </a>
         </div>
