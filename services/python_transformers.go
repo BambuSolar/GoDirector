@@ -13,8 +13,7 @@ type PythonTransformers struct {}
 
 func getUrl() string{
 
-	//return "http://ec2-35-166-23-165.us-west-2.compute.amazonaws.com:5000"
-	return "http://localhost:5000"
+	return "http://ec2-35-166-23-165.us-west-2.compute.amazonaws.com:5000"
 
 }
 
