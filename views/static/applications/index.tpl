@@ -11,7 +11,7 @@
                             <th style="width: 20px;"></th>
                             <th>Name</th>
                             <th>IP</th>
-                            <th style="width: 60px;">Operations</th>
+                            <th style="width: 160px;">Operations</th>
                         </tr>
                         </thead>
                         <tbody></tbody>
