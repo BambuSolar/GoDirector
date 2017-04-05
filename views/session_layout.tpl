@@ -8,14 +8,9 @@
     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/css/sweetalert.css">
     <link rel="stylesheet" href="../static/css/style.css">
-    <style>
-        body{
-            background: grey;
-        }
-    </style>
-    <!--<script src='https://www.google.com/recaptcha/api.js'></script>-->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
-<body>
+<body class="session-body">
 
 <div class="container">
 

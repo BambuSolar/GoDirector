@@ -22,6 +22,8 @@
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
 
+    Got an account? <a href="/login">Log in now!</a>
+
 </form>
 
 {{template "scripts.tpl"}}

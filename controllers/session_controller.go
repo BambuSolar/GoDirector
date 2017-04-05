@@ -1,11 +1,11 @@
 package controllers
 
 import (
-	"fmt"
 	"github.com/astaxie/beego"
 	"html/template"
 	"github.com/BambuSolar/GoDirector/lib"
 	"github.com/BambuSolar/GoDirector/models"
+	"fmt"
 )
 
 type SessionController struct {
@@ -31,8 +31,9 @@ func (c *SessionController) Login() {
 	flash := beego.NewFlash()
 	email := c.GetString("Email")
 	password := c.GetString("Password")
+	recaptcha := c.GetString("g-recaptcha-response")
 
-	user, err := lib.Authenticate(email, password)
+	user, err := lib.Authenticate(email, password, recaptcha)
 	if err != nil || user.Id < 1 {
 		flash.Warning(err.Error())
 		flash.Store(&c.Controller)
