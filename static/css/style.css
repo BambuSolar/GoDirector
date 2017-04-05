@@ -116,16 +116,17 @@
 
 .form-signin, .form-register {
     left: 50%;
-    max-width: 330px;
-    margin-left: -165px;
+    width: 400px;
+    margin-left: -200px;
     padding: 15px;
     background: white;
 
 }
 
-@media screen and (max-width: 330px){
+@media screen and (max-width: 400px){
     .form-signin, .form-register {
         width: 100%;
+        min-width: 400px;
         left: 0;
         margin: 0;
         padding: 0;
@@ -134,16 +135,36 @@
 
 .form-signin {
     position: absolute;
-    height: 450px;
+    height: 500px;
     top: 50%;
-    margin-top: -225px;
+    margin-top: -250px;
+}
+
+@media screen and (max-height: 450px){
+    .form-signin {
+        position: absolute;
+        height: 450px;
+        top: 0;
+        left: 0;
+        margin: 0;
+    }
 }
 
 .form-register {
     position: absolute;
-    height: 570px;
+    height: 600px;
     top: 50%;
-    margin-top: -270px;
+    margin-top: -300px;
+}
+
+@media screen and (max-height: 570px){
+    .form-register {
+        position: absolute;
+        height: 570px;
+        top: 0;
+        left: 0;
+        margin: 0;
+    }
 }
 
 .form-signin .form-signin-heading,
@@ -245,4 +266,37 @@
 
 .list-group-item {
     word-wrap: break-word;
+}
+
+.m-10{
+    margin: 10px;
+}
+
+body{
+    background: #a7a6a6;
+    overflow: auto;
+}
+
+.g-recaptcha > div{
+    text-align: center;
+    position: relative;
+    width: auto !important;
+}
+
+.alert button{
+    margin-top: -3px;
+}
+
+h1{
+    color: #ffffff;
+
+}
+
+
+.form{
+    max-width: 600px;
+}
+
+.form-horizontal{
+    padding: 30px;
 }

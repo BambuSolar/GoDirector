@@ -4,7 +4,6 @@ package services
 import (
 	"net/http"
 	"strings"
-	"fmt"
 )
 
 type Slack struct {}
@@ -72,9 +71,7 @@ func (self *Slack) DeploySuccess(environment string, version string, website str
 
 	req.Header.Add("cache-control", "no-cache")
 
-	res, _ := http.DefaultClient.Do(req)
-
-	fmt.Println(res.Status)
+	http.DefaultClient.Do(req)
 
 }
 
@@ -96,8 +93,6 @@ func (self *Slack) DeployError(environment string, version string)  {
 
 	req.Header.Add("cache-control", "no-cache")
 
-	res, _ := http.DefaultClient.Do(req)
-
-	fmt.Println(res.Status)
+	http.DefaultClient.Do(req)
 
 }

@@ -17,6 +17,8 @@
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 
+    Need an account? <a href="/signup">Sign up.</a>
+
 </form>
 
 {{template "scripts.tpl"}}

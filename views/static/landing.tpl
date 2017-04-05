@@ -12,11 +12,11 @@
             </p>
             <p class="text-center">
                 <div class="row">
-                    <div class="col-xs-6 col-sm-4 col-sm-offset-2">
-                        <a class="btn btn-primary btn-lg btn-block" href="/builds/new" role="button">Create a Build</a>
+                    <div class="col-xs-12 col-sm-4 col-sm-offset-2">
+                        <a class="btn btn-primary btn-lg btn-block m-10" href="/builds/new" role="button">Create a Build</a>
                     </div>
-                    <div class="col-xs-6 col-sm-4">
-                        <a class="btn btn-primary btn-lg btn-block" href="/deploys/new" role="button">Create a Deploy</a>
+                    <div class="col-xs-12 col-sm-4">
+                        <a class="btn btn-primary btn-lg btn-block m-10" href="/deploys/new" role="button">Create a Deploy</a>
                     </div>
                 </div>
             </p>

@@ -13,7 +13,7 @@ import (
 
 type User struct {
 	Id    int64  `orm:"auto"`
-	FullName string `orm:"size(128)"`
+	FullName string `orm:"size(128)" valid:"Required;MinSize(6)"`
 	Email         string    `orm:"size(64);unique" form:"Email" valid:"Required;Email"`
 	Password      string    `orm:"size(32)" form:"Password" valid:"Required;MinSize(6)"`
 	Repassword    string    `orm:"-" form:"Repassword" valid:"Required"`

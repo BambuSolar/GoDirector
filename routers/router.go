@@ -44,6 +44,8 @@ func init() {
 	beego.Router("/api/users", &controllers.UserController{}, "get:GetAll")
 	beego.Router("/api/users/:id", &controllers.UserController{}, "delete:Delete")
 
+	beego.Router("/users/me", &controllers.UserController{}, "get,post:EditAccount")
+
 	beego.Router("/api/builds/status", &controllers.BuildController{}, "get:GetStatus")
 	beego.Router("/api/builds/steps", &controllers.BuildController{}, "get:GetSteps")
 	beego.Router("/api/builds/last", &controllers.BuildController{}, "get:GetLast")

@@ -1,6 +1,6 @@
 <div class="layout">
-    <div class="container">
-        <h1 class="page-header">Applications</h1>
+<div class="container">
+        <h1 class="page-header">Users</h1>
 
         <div class="panel panel-default">
             <div class="panel-body">
@@ -9,9 +9,9 @@
                         <thead>
                         <tr>
                             <th style="width: 20px;"></th>
-                            <th>Name</th>
-                            <th>IP</th>
-                            <th style="width: 160px;">Operations</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th style="width: 60px;">Operations</th>
                         </tr>
                         </thead>
                         <tbody></tbody>
@@ -30,9 +30,6 @@
                                 </nav>
                             </td>
                         </tr>
-                        <tr>
-                            <td colspan="4"><button id="btnCreateItem" class="btn btn-block btn-success">Create New Application</button></td>
-                        </tr>
                         </tfoot>
                     </table>
                 </div>
@@ -44,4 +41,4 @@
 
 {{template "scripts.tpl"}}
 <script src="/static/js/CRUD_library.js"></script>
-<script src="/static/js/applications/index.js"></script>
+<script src="/static/js/users/index.js"></script>

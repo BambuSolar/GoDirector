@@ -5,7 +5,6 @@ import (
 
 	"github.com/ikeikeikeike/gopkg/convert"
 	"github.com/BambuSolar/GoDirector/models"
-	"fmt"
 )
 
 func SignupUser(u *models.User) (int64, error) {
@@ -22,8 +21,6 @@ func SignupUser(u *models.User) (int64, error) {
 	u.Password = convert.StrTo(u.Password).Md5()
 
 	err = u.Insert()
-
-	fmt.Println(err.Error())
 
 	if err != nil {
 		return 0, err
