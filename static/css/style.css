@@ -272,8 +272,8 @@
     margin: 10px;
 }
 
-.session-body{
-    background: #bfbfbf;
+body{
+    background: #a7a6a6;
     overflow: auto;
 }
 
@@ -281,4 +281,22 @@
     text-align: center;
     position: relative;
     width: auto !important;
+}
+
+.alert button{
+    margin-top: -3px;
+}
+
+h1{
+    color: #ffffff;
+
+}
+
+
+.form{
+    max-width: 600px;
+}
+
+.form-horizontal{
+    padding: 30px;
 }

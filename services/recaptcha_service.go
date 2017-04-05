@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"io/ioutil"
 	"encoding/json"
-	"fmt"
 )
 
 type Recaptcha struct {}
@@ -41,8 +40,6 @@ func (self *Recaptcha) Check(g_recaptcha_response string) bool{
 			if ( f != nil ) {
 
 				m := f.(map[string]interface{})
-
-				fmt.Println(m)
 
 				return m["success"].(bool)
 

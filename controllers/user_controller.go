@@ -6,6 +6,7 @@ import (
 	"github.com/BambuSolar/GoDirector/models"
 	"strconv"
 	"strings"
+	"github.com/astaxie/beego"
 )
 
 //  UserController operations for User
@@ -15,9 +16,15 @@ type UserController struct {
 
 func (c *UserController) NestPrepare() {
 	if !c.IsLogin {
-		c.Ctx.Output.SetStatus(401)
-		c.ServeJSON()
-		return
+
+		if(! strings.Contains(c.Ctx.Request.Header.Get("Accept"), "html")){
+			c.Ctx.Output.SetStatus(401)
+			c.ServeJSON()
+			return
+		}else{
+			c.Ctx.Redirect(302, c.LoginPath())
+			return
+		}
 	}
 }
 
@@ -212,10 +219,68 @@ func (c *UserController) Put() {
 func (c *UserController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.ParseInt(idStr, 0, 64)
-	if err := models.DeleteUser(id); err == nil {
-		c.Data["json"] = "OK"
-	} else {
-		c.Data["json"] = err.Error()
+
+	if (c.GetLogin().Id != id){
+
+		if err := models.DeleteUser(id); err == nil {
+			c.Data["json"] = "OK"
+		} else {
+			c.Data["json"] = err.Error()
+		}
+	}else{
+
+		c.Ctx.Output.SetStatus(403)
+
 	}
 	c.ServeJSON()
+}
+
+
+func (c *UserController) EditAccount() {
+	c.Layout = "layout.tpl"
+	c.TplName = "static/users/edit.tpl"
+
+	u := c.GetLogin()
+
+	c.Data["FullName"] = u.FullName
+
+	c.Data["Email"] = u.Email
+
+	if !c.Ctx.Input.IsPost() {
+		return
+	}
+
+	fullName := c.GetString("FullName")
+
+	email := c.GetString("Email")
+
+	u.FullName = fullName
+
+	u.Email = email
+
+	err := models.UpdateUserById(u)
+
+	flash := beego.NewFlash()
+
+	if(err == nil) {
+
+		flash.Notice("Personal Information updated successfully")
+
+		flash.Store(&c.Controller)
+
+		c.Redirect(c.URLFor("StaticController.Landing"), 302)
+
+		return
+
+	}else{
+
+		flash.Warning(err.Error())
+
+		flash.Store(&c.Controller)
+
+		return
+
+	}
+
+
 }

@@ -10,7 +10,7 @@
     <input type="text" id="inputFullName" name="FullName" class="form-control" placeholder="Full Name" required autofocus>
 
     <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email" id="inputEmail" name="Email" class="form-control" placeholder="Email address" required autofocus>
+    <input type="email" id="inputEmail" name="Email" class="form-control" placeholder="Email address" required>
 
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" id="inputPassword" name="Password" class="form-control" placeholder="Password" required>

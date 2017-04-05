@@ -59,7 +59,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#">
+                            <a href="/users/me">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modify User Data
                             </a>
                         </li>
@@ -80,7 +80,30 @@
         </div><!--/.nav-collapse -->
     </div>
 </nav>
-
+{{if .flash}}
+    {{if .flash.warning}}
+    <div class="alert alert-warning" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Warning:</span>
+        {{.flash.warning}}
+    </div>
+    {{else if .flash.error}}
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{.flash.error}}
+    </div>
+    {{else if .flash.notice}}
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Success:</span>
+        {{.flash.notice}}
+    </div>
+    {{end}}
+{{end}}
 {{.LayoutContent}}
 
 <div class="loader">

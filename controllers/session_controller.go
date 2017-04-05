@@ -5,7 +5,7 @@ import (
 	"html/template"
 	"github.com/BambuSolar/GoDirector/lib"
 	"github.com/BambuSolar/GoDirector/models"
-	"fmt"
+	"github.com/BambuSolar/GoDirector/services"
 )
 
 type SessionController struct {
@@ -40,7 +40,7 @@ func (c *SessionController) Login() {
 		return
 	}
 
-	flash.Success("Success logged in")
+	flash.Notice("Success logged in")
 	flash.Store(&c.Controller)
 
 	c.SetLogin(user)
@@ -51,7 +51,7 @@ func (c *SessionController) Login() {
 func (c *SessionController) Logout() {
 	c.DelLogin()
 	flash := beego.NewFlash()
-	flash.Success("Success logged out")
+	flash.Notice("Success logged out")
 	flash.Store(&c.Controller)
 
 	c.Ctx.Redirect(302,"/login")
@@ -71,35 +71,44 @@ func (c *SessionController) Signup() {
 	var err error
 	flash := beego.NewFlash()
 
-	u := &models.User{}
+	recaptcha := c.GetString("g-recaptcha-response")
 
-	if err = c.ParseForm(u); err != nil {
-		flash.Error("Signup invalid!")
-		fmt.Println("Signup invalid!")
+	recaptcha_srv := services.Recaptcha{}
+
+	if (recaptcha_srv.Check(recaptcha)) {
+
+		u := &models.User{}
+
+		if err = c.ParseForm(u); err != nil {
+			flash.Error("Signup invalid!")
+			flash.Store(&c.Controller)
+			return
+		}
+		if err = models.IsValid(u); err != nil {
+			flash.Error(err.Error())
+			flash.Store(&c.Controller)
+			return
+		}
+
+		id, err := lib.SignupUser(u)
+
+		if err != nil || id < 1 {
+			flash.Warning(err.Error())
+			flash.Store(&c.Controller)
+			return
+		}
+
+		flash.Notice("Registion success!")
 		flash.Store(&c.Controller)
-		return
+
+		c.SetLogin(u)
+
+		c.Redirect(c.URLFor("StaticController.Landing"), 303)
+
+	}else{
+
+
+
 	}
-	if err = models.IsValid(u); err != nil {
-		flash.Error(err.Error())
-		fmt.Println(err.Error())
-		flash.Store(&c.Controller)
-		return
-	}
-
-	id, err := lib.SignupUser(u)
-
-	if err != nil || id < 1 {
-		flash.Warning(err.Error())
-		fmt.Println(err.Error())
-		flash.Store(&c.Controller)
-		return
-	}
-
-	flash.Success("Register user")
-	flash.Store(&c.Controller)
-
-	c.SetLogin(u)
-
-	c.Redirect(c.URLFor("UsersController.Index"), 303)
 }
 
