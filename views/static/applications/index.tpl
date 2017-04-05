@@ -31,7 +31,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="4"><button id="btnCreateItem" class="btn btn-block btn-success">Create New System Parameter</button></td>
+                            <td colspan="4"><button id="btnCreateItem" class="btn btn-block btn-success">Create New Application</button></td>
                         </tr>
                         </tfoot>
                     </table>
