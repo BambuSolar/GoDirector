@@ -6,17 +6,23 @@ import (
 	"github.com/BambuSolar/GoDirector/models"
 	"strconv"
 	"strings"
-
-	"github.com/astaxie/beego"
 )
 
-//  EnvironmentController operations for Environment
-type EnvironmentController struct {
-	beego.Controller
+//  UserController operations for User
+type UserController struct {
+	BaseController
+}
+
+func (c *UserController) NestPrepare() {
+	if !c.IsLogin {
+		c.Ctx.Output.SetStatus(401)
+		c.ServeJSON()
+		return
+	}
 }
 
 // URLMapping ...
-func (c *EnvironmentController) URLMapping() {
+func (c *UserController) URLMapping() {
 	c.Mapping("Post", c.Post)
 	c.Mapping("GetOne", c.GetOne)
 	c.Mapping("GetAll", c.GetAll)
@@ -26,20 +32,20 @@ func (c *EnvironmentController) URLMapping() {
 
 // Post ...
 // @Title Post
-// @Description create Environment
-// @Param	body		body 	models.Environment	true		"body for Environment content"
-// @Success 201 {int} models.Environment
+// @Description create User
+// @Param	body		body 	models.User	true		"body for User content"
+// @Success 201 {int} models.User
 // @Failure 403 body is empty
 // @router / [post]
-func (c *EnvironmentController) Post() {
+func (c *UserController) Post() {
 
 	result := map[string]interface{}{
 		"success": true,
 	}
 
-	var v models.Environment
+	var v models.User
 	json.Unmarshal(c.Ctx.Input.RequestBody, &v)
-	if _, err := models.AddEnvironment(&v); err == nil {
+	if _, err := models.AddUser(&v); err == nil {
 		c.Ctx.Output.SetStatus(201)
 		result["data"] = v
 	} else {
@@ -55,12 +61,12 @@ func (c *EnvironmentController) Post() {
 
 // GetOne ...
 // @Title Get One
-// @Description get Environment by id
+// @Description get User by id
 // @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.Environment
+// @Success 200 {object} models.User
 // @Failure 403 :id is empty
 // @router /:id [get]
-func (c *EnvironmentController) GetOne() {
+func (c *UserController) GetOne() {
 
 	result := map[string]interface{}{
 		"success": true,
@@ -68,7 +74,7 @@ func (c *EnvironmentController) GetOne() {
 
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.ParseInt(idStr, 0, 64)
-	v, err := models.GetEnvironmentById(id)
+	v, err := models.GetUserById(id)
 	if err != nil {
 		result["success"] = false
 		result["error"] = err.Error()
@@ -83,17 +89,17 @@ func (c *EnvironmentController) GetOne() {
 
 // GetAll ...
 // @Title Get All
-// @Description get Environment
+// @Description get User
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.Environment
+// @Success 200 {object} models.User
 // @Failure 403
 // @router / [get]
-func (c *EnvironmentController) GetAll() {
+func (c *UserController) GetAll() {
 
 	result := map[string]interface{}{
 		"success": true,
@@ -145,9 +151,9 @@ func (c *EnvironmentController) GetAll() {
 		"offset": offset,
 	}
 
-	l, err := models.GetAllEnvironment(query, fields, sortby, order, offset, limit)
+	l, err := models.GetAllUser(query, fields, sortby, order, offset, limit)
 
-	pagination["total"], _ = models.GetCountAllEnvironment()
+	pagination["total"], _ = models.GetCountAllUser()
 
 	if err != nil {
 		c.Data["json"] = err.Error()
@@ -155,7 +161,7 @@ func (c *EnvironmentController) GetAll() {
 		if l != nil {
 			result["data"] = l
 		}else{
-			result["data"] = make([]*models.Environment, 0)
+			result["data"] = make([]*models.User, 0)
 		}
 	}
 
@@ -168,13 +174,13 @@ func (c *EnvironmentController) GetAll() {
 
 // Put ...
 // @Title Put
-// @Description update the Environment
+// @Description update the User
 // @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.Environment	true		"body for Environment content"
-// @Success 200 {object} models.Environment
+// @Param	body		body 	models.User	true		"body for User content"
+// @Success 200 {object} models.User
 // @Failure 403 :id is not int
 // @router /:id [put]
-func (c *EnvironmentController) Put() {
+func (c *UserController) Put() {
 
 	result := map[string]interface{}{
 		"success": true,
@@ -182,9 +188,9 @@ func (c *EnvironmentController) Put() {
 
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.ParseInt(idStr, 0, 64)
-	v := models.Environment{Id: id}
+	v := models.User{Id: id}
 	json.Unmarshal(c.Ctx.Input.RequestBody, &v)
-	if err := models.UpdateEnvironmentById(&v); err == nil {
+	if err := models.UpdateUserById(&v); err == nil {
 		result["data"] = v
 	} else {
 		result["success"] = false
@@ -198,15 +204,15 @@ func (c *EnvironmentController) Put() {
 
 // Delete ...
 // @Title Delete
-// @Description delete the Environment
+// @Description delete the User
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
 // @Failure 403 id is empty
 // @router /:id [delete]
-func (c *EnvironmentController) Delete() {
+func (c *UserController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.ParseInt(idStr, 0, 64)
-	if err := models.DeleteEnvironment(id); err == nil {
+	if err := models.DeleteUser(id); err == nil {
 		c.Data["json"] = "OK"
 	} else {
 		c.Data["json"] = err.Error()

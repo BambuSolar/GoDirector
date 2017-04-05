@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"github.com/astaxie/beego"
 	"github.com/BambuSolar/GoDirector/services"
 	"github.com/BambuSolar/GoDirector/models"
 	"encoding/json"
@@ -11,7 +10,15 @@ import (
 )
 
 type BuildController struct {
-	beego.Controller
+	BaseController
+}
+
+func (c *BuildController) NestPrepare() {
+	if !c.IsLogin {
+		c.Ctx.Output.SetStatus(401)
+		c.ServeJSON()
+		return
+	}
 }
 
 func (c *BuildController) URLMapping() {

@@ -1,12 +1,19 @@
 package controllers
 
 import (
-	"github.com/astaxie/beego"
 	"github.com/BambuSolar/GoDirector/services"
 )
 
 type VersionController struct {
-	beego.Controller
+	BaseController
+}
+
+func (c *VersionController) NestPrepare() {
+	if !c.IsLogin {
+		c.Ctx.Output.SetStatus(401)
+		c.ServeJSON()
+		return
+	}
 }
 
 func (c *VersionController) URLMapping() {

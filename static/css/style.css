@@ -114,6 +114,64 @@
       }
 }
 
+.form-signin, .form-register {
+    left: 50%;
+    max-width: 330px;
+    margin-left: -165px;
+    padding: 15px;
+    background: white;
+
+}
+
+@media screen and (max-width: 330px){
+    .form-signin, .form-register {
+        width: 100%;
+        left: 0;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.form-signin {
+    position: absolute;
+    height: 450px;
+    top: 50%;
+    margin-top: -225px;
+}
+
+.form-register {
+    position: absolute;
+    height: 570px;
+    top: 50%;
+    margin-top: -270px;
+}
+
+.form-signin .form-signin-heading,
+.form-register .form-register-heading{
+    margin-bottom: 10px;
+}
+
+.form-signin .form-control,
+.form-register .form-control{
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+.form-signin .form-control:focus,
+.form-register .form-control:focus {
+    z-index: 2;
+}
+
+.form-signin .g-recaptcha,
+.form-register .g-recaptcha{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 
 .deploy-step, .build-step{
     position: relative;
@@ -184,3 +242,7 @@
 .list-group-item-danger  .deploy-step-number, .list-group-item-danger  .build-step-number{
      background: #e51c23;
  }
+
+.list-group-item {
+    word-wrap: break-word;
+}

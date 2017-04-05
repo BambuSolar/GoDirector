@@ -1,11 +1,16 @@
 package controllers
 
-import (
-	"github.com/astaxie/beego"
-)
+
 
 type StaticController struct {
-	beego.Controller
+	BaseController
+}
+
+func (c *StaticController) NestPrepare() {
+	if !c.IsLogin {
+		c.Ctx.Redirect(302, c.LoginPath())
+		return
+	}
 }
 
 func (c *StaticController) Landing() {
@@ -44,3 +49,12 @@ func (c *StaticController) CreateBuilds() {
 	c.TplName = "static/builds/create.tpl"
 }
 
+func (c *StaticController) IndexUsers() {
+	c.Layout = "layout.tpl"
+	c.TplName = "static/users/index.tpl"
+}
+
+func (c *StaticController) IndexApplications() {
+	c.Layout = "layout.tpl"
+	c.TplName = "static/applications/index.tpl"
+}

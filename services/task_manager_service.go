@@ -203,7 +203,7 @@ func (tm *TaskManager) CreateDeploy(data models.Deploy, type_task string, number
 
 					t.StatusDetail = string(err.Error())
 
-					slack.DeployError()
+					slack.DeployError(data.Environment, data.Version)
 				}else{
 					t.WaitingBuddy = true
 				}
@@ -216,7 +216,7 @@ func (tm *TaskManager) CreateDeploy(data models.Deploy, type_task string, number
 
 				t.StatusDetail = string(err.Error())
 
-				slack.DeployError()
+				slack.DeployError(data.Environment, data.Version)
 
 				models.UpdateTaskById(&t)
 
@@ -240,6 +240,16 @@ func (tm *TaskManager) ContinueDeployFromBuddy(t *models.Task, deploy *models.De
 
 	if(is_passed){
 
+		query := map[string]string{
+			"Name": deploy.Environment,
+		}
+
+		environments, _ := models.GetAllEnvironment(query, nil, nil, nil, 0, 1 )
+
+		environment, _ := environments[0].(models.Environment)
+
+		preview_url := "http://" + environment.ServerUrl
+
 		t.WaitingBuddy = false
 
 		if(deploy.Environment == "beta"){
@@ -251,6 +261,8 @@ func (tm *TaskManager) ContinueDeployFromBuddy(t *models.Task, deploy *models.De
 			deploy.Status = "successful"
 
 			models.UpdateDeployById(deploy)
+
+			slack.DeploySuccess(deploy.Environment, deploy.Version, preview_url)
 
 		}else{
 
@@ -274,17 +286,9 @@ func (tm *TaskManager) ContinueDeployFromBuddy(t *models.Task, deploy *models.De
 
 					if (p_t_err == nil){
 
-						query := map[string]string{
-							"Name": "prod",
-						}
+						environment.Version = deploy.Version
 
-						environments, _ := models.GetAllEnvironment(query, nil, nil, nil, 0, 1 )
-
-						env_prod, _ := environments[0].(models.Environment)
-
-						env_prod.Version = deploy.Version
-
-						models.UpdateEnvironmentById(&env_prod)
+						models.UpdateEnvironmentById(&environment)
 
 						t.CurrentStep += 1
 
@@ -305,7 +309,7 @@ func (tm *TaskManager) ContinueDeployFromBuddy(t *models.Task, deploy *models.De
 
 							t.StatusDetail = string(err.Error())
 
-							slack.DeployError()
+							slack.DeployError(deploy.Environment, deploy.Version)
 						}else{
 							t.WaitingBuddy = true
 						}
@@ -322,7 +326,7 @@ func (tm *TaskManager) ContinueDeployFromBuddy(t *models.Task, deploy *models.De
 
 						t.StatusDetail = string(p_t_err.Error())
 
-						slack.DeployError()
+						slack.DeployError(deploy.Environment, deploy.Version)
 
 						models.UpdateTaskById(t)
 
@@ -340,7 +344,7 @@ func (tm *TaskManager) ContinueDeployFromBuddy(t *models.Task, deploy *models.De
 
 					models.UpdateTaskById(t)
 
-					slack.DeployError()
+					slack.DeployError(deploy.Environment, deploy.Version)
 
 				}
 
@@ -358,7 +362,7 @@ func (tm *TaskManager) ContinueDeployFromBuddy(t *models.Task, deploy *models.De
 
 				models.UpdateDeployById(deploy)
 
-				slack.DeploySuccess()
+				slack.DeploySuccess(deploy.Environment, deploy.Version, preview_url)
 
 			}
 
@@ -382,7 +386,7 @@ func (tm *TaskManager) ContinueDeployFromBuddy(t *models.Task, deploy *models.De
 
 		models.UpdateTaskById(t)
 
-		slack.DeployError()
+		slack.DeployError(deploy.Environment, deploy.Version)
 
 	}
 
