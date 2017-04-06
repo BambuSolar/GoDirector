@@ -12,7 +12,7 @@ import (
 
 func init() {
 	orm.RegisterDriver("sqlite", orm.DRSqlite)
-	orm.RegisterDataBase("default", "sqlite3", "database/orm_test.db")
+	orm.RegisterDataBase("default", "sqlite3", "database/GoDirector.db")
 }
 
 func main() {

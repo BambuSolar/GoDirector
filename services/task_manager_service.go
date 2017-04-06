@@ -203,6 +203,10 @@ func (tm *TaskManager) CreateDeploy(data models.Deploy, type_task string, number
 
 					t.StatusDetail = string(err.Error())
 
+					data.Status = "failed"
+
+					models.UpdateDeployById(&data)
+
 					slack.DeployError(data.Environment, data.Version)
 				}else{
 					t.WaitingBuddy = true
@@ -215,6 +219,10 @@ func (tm *TaskManager) CreateDeploy(data models.Deploy, type_task string, number
 				t.Status = "error"
 
 				t.StatusDetail = string(err.Error())
+
+				data.Status = "failed"
+
+				models.UpdateDeployById(&data)
 
 				slack.DeployError(data.Environment, data.Version)
 
