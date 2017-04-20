@@ -13,8 +13,8 @@ fileName="GoDirector.db"
 relativePath="/${s3Bucket}/Backups/GoDirector/${fileName}"
 contentType="application/octet-stream"
 stringToSign="PUT\n\n${contentType}\n${dateFormatted}\n${relativePath}"
-s3AccessKey="AKIAIVRA64KOGYERRF2Q"
-s3SecretKey="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"
+s3AccessKey="AKIAIQQ3GDZI6EA5RVPQ"
+s3SecretKey="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"
 
 signature=`echo -en ${stringToSign} | openssl sha1 -hmac ${s3SecretKey} -binary | base64`
 
