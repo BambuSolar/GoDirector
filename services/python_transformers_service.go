@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"strings"
 	"errors"
+	"fmt"
 	"github.com/BambuSolar/GoDirector/models"
 )
 
@@ -68,12 +69,14 @@ func (self *PythonTransformers) CreateBuild(data models.Build) (map[string]inter
 		var f interface{}
 
 		json.Unmarshal(body, &f)
+		
+		m := f.(map[string]interface{})
+		
+		fmt.Println(m)
 
 		if(res.StatusCode == 201){
 
 			if ( f != nil ) {
-
-				m := f.(map[string]interface{})
 
 				if ( m != nil ) {
 
@@ -88,8 +91,6 @@ func (self *PythonTransformers) CreateBuild(data models.Build) (map[string]inter
 		}else{
 
 			if(f != nil ){
-
-				m := f.(map[string]interface{})
 
 				if (m["error"] != nil){
 
