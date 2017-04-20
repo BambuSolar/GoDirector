@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"strings"
 	"errors"
+	"fmt"
 )
 
 type BuildController struct {
@@ -266,6 +267,8 @@ func (c *BuildController) Post() {
 	}
 
 	build.Url = crawlerUrl
+	
+	fmt.Println(build)
 
 	task, new_task := services.GetTaskManagerInstance().CreateBuild(build, "build", 1)
 
