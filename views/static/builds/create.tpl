@@ -6,19 +6,15 @@
             <div class="panel-body">
 
                 <form id="form-build">
-                    <div class="form-group">
-                        <label class="" for="buildEnvironmentSelect">Environment</label>
-                        <select id="buildEnvironmentSelect" class="form-control" name="Environment">
-                            <option value="-1"> -- Select an environment -- </option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="buildUrlInput">Url</label>
-                        <input type="url" class="form-control" id="buildUrlInput" placeholder="Url" name="Url">
-                    </div>
-
                     <div class="row">
-                        <div class="col-md-4 col-md-offset-8 col-xs-12">
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <select id="buildEnvironmentSelect" class="form-control" name="Environment">
+                                    <option value="-1"> -- Select an environment -- </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
                             <button type="submit" class="btn btn-primary btn-block">Build</button>
                         </div>
                     </div>

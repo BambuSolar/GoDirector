@@ -241,6 +241,32 @@ func (c *BuildController) Post() {
 
 	build.Status = "in_progress"
 
+	query := map[string]string{
+		"key": "CrawlerUrl",
+	}
+
+	crawlerUrl := ""
+
+	system_parameters, _ := models.GetAllSystem_parameters(query, nil,nil,nil,0,1)
+
+	if(system_parameters != nil) {
+
+		crawlerUrl = system_parameters[0].(models.System_parameters).Value
+
+
+	}else{
+
+		result["success"] = false
+
+		c.Data["json"] = result
+
+		c.Ctx.Output.SetStatus(400)
+
+		c.ServeJSON()
+	}
+
+	build.Url = crawlerUrl
+
 	task, new_task := services.GetTaskManagerInstance().CreateBuild(build, "build", 1)
 
 	if (new_task) {
