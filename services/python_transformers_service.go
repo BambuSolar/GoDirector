@@ -6,8 +6,8 @@ import (
 	"encoding/json"
 	"strings"
 	"errors"
-	"fmt"
 	"github.com/BambuSolar/GoDirector/models"
+	"fmt"
 )
 
 type PythonTransformers struct {}
@@ -71,8 +71,6 @@ func (self *PythonTransformers) CreateBuild(data models.Build) (map[string]inter
 		json.Unmarshal(body, &f)
 		
 		m := f.(map[string]interface{})
-		
-		fmt.Println(m)
 
 		if(res.StatusCode == 201){
 
