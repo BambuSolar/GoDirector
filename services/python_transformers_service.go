@@ -7,7 +7,6 @@ import (
 	"strings"
 	"errors"
 	"github.com/BambuSolar/GoDirector/models"
-	"fmt"
 )
 
 type PythonTransformers struct {}
