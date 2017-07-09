@@ -22,9 +22,9 @@
 
                             <div class="form-group">
                                 <label class="sr-only" for="deployVersionSelect">Version</label>
-                                <select id="deployVersionSelect" class="form-control" name="Version">
-                                    <option value=""> -- First select an environment -- </option>
-                                </select>
+                                    <select id="deployVersionSelect" class="form-control select2"  name="Version">
+                                        <option value=""> -- First select an environment -- </option>
+                                    </select>
                             </div>
 
                         </div>

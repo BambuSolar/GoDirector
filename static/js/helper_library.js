@@ -1,3 +1,6 @@
+$(function () {
+   
+});
 function showLoader () {
 
     $('.loader').show();

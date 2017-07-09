@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link href="/static/img/icon.png" rel="icon">
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/css/sweetalert.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/css/style.css">
 </head>
 <body>

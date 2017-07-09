@@ -49,7 +49,7 @@ var Deploy = (function () {
 
         $('#deployVersionSelect').empty();
 
-        $.each(versions[environment], function (index, item) {
+        $.each(versions[environment].reverse(), function (index, item) {
 
             if(environments[environment].Version == item){
                 $('#deployVersionSelect')
@@ -63,7 +63,7 @@ var Deploy = (function () {
 
         var options = $('#deployVersionSelect').find("option");
 
-        $(options[versions[environment].length - 1]).attr('selected','selected');
+        $(options[0]).attr('selected','selected');
 
     };
 
