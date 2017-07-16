@@ -2,6 +2,7 @@ package services
 
 import (
 	"net/http"
+	"os"
 	"io/ioutil"
 	"encoding/json"
 	"strings"
@@ -13,7 +14,7 @@ type PythonTransformers struct {}
 
 func getUrl() string{
 
-	return "http://javiercaballero.info:5002"
+	return os.Getenv("PythonTransformerURL")
 
 }
 
