@@ -10,6 +10,7 @@ import (
 	"strings"
 	"github.com/go-redis/redis"
 	"encoding/json"
+	"os"
 )
 
 type BaseController struct {
@@ -46,7 +47,7 @@ func (c *BaseController) Prepare() {
 			if len(arr_token) > 1 {
 
 				client_redis := redis.NewClient(&redis.Options{
-					Addr:     "localhost:6379", // no password set
+					Addr:     os.Getenv("RedisURL"), // no password set
 					DB:       4,  // use default DB
 				})
 
