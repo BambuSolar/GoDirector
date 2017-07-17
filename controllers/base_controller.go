@@ -8,6 +8,8 @@ import (
 	"github.com/BambuSolar/GoDirector/models"
 	"github.com/robbert229/jwt"
 	"strings"
+	"github.com/go-redis/redis"
+	"encoding/json"
 )
 
 type BaseController struct {
@@ -39,9 +41,44 @@ func (c *BaseController) Prepare() {
 
 		if(token != ""){
 
-			algorithm :=  jwt.HmacSha256("GoDirector")
+			arr_token := strings.Split(token, ".")
 
-			if algorithm.Validate(token) == nil {
+			if len(arr_token) > 1 {
+
+				client_redis := redis.NewClient(&redis.Options{
+					Addr:     "localhost:6379", // no password set
+					DB:       4,  // use default DB
+				})
+
+				fmt.Println(token)
+
+				redis_result, err := client_redis.Get(token).Result()
+
+				if err != redis.Nil {
+
+					if err != nil {
+
+						panic(err)
+
+					}
+
+					var dat map[string]interface{}
+
+					if err := json.Unmarshal([]byte(redis_result), &dat); err != nil {
+						panic(err)
+					}
+
+					allow_login, ok := dat["allow"].(bool)
+
+					if(ok && allow_login){
+						c.IsLogin = true
+					}
+
+					return
+
+				}
+
+				algorithm := jwt.HmacSha256("GoDirector")
 
 				claims, err := algorithm.Decode(token)
 
@@ -51,21 +88,27 @@ func (c *BaseController) Prepare() {
 
 					query := map[string]string{
 						"Name": name.(string),
+						"Token": token,
 					}
 
 					apps, err := models.GetAllApplication(query, nil, nil, nil, 0, 1)
 
-					if(err == nil){
+					if (err == nil && len(apps) > 0) {
 
-						app := apps[0].(models.Application)
+						value_redis, _ := json.Marshal(map[string]interface{}{
+							"ip": c.getClientIp(),
+							"allow": true,
+						})
 
-						if(app.Token == token && app.IP == c.getClientIp()){
+						set_result, err := client_redis.Set(token, string(value_redis) , 0).Result()
 
-							c.IsLogin = true
+						fmt.Println(set_result)
+						fmt.Println(err)
 
-						}
+						c.IsLogin = true
 
 					}
+
 				}
 			}
 

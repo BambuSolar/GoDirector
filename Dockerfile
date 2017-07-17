@@ -8,6 +8,4 @@ ADD . /go/src/github.com/BambuSolar/GoDirector/
 
 CMD ./GoDirector download
 
-CMD ./GoDirector install
-
 ENTRYPOINT ./GoDirector

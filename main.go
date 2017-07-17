@@ -8,11 +8,13 @@ import (
 
 	"github.com/astaxie/beego/plugins/cors"
 	"os"
+	"fmt"
 )
 
 
 func init() {
 	orm.RegisterDriver("mysql", orm.DRMySQL)
+	fmt.Print(os.Getenv("MySQLConection"))
 	orm.RegisterDataBase("default", "mysql", os.Getenv("MySQLConection"))
 }
 
