@@ -100,14 +100,33 @@ func (c *BaseController) Prepare() {
 							"allow": true,
 						})
 
-						set_result, err := client_redis.Set(token, string(value_redis) , 0).Result()
-
-						fmt.Println(set_result)
-						fmt.Println(err)
+						client_redis.Set(token, string(value_redis) , 0).Result()
 
 						c.IsLogin = true
 
+					}else{
+
+						value_redis, _ := json.Marshal(map[string]interface{}{
+							"ip": c.getClientIp(),
+							"allow": false,
+						})
+
+						client_redis.Set(token, string(value_redis) , 0).Result()
+
+						return
+
 					}
+
+				}else{
+
+					value_redis, _ := json.Marshal(map[string]interface{}{
+						"ip": c.getClientIp(),
+						"allow": false,
+					})
+
+					client_redis.Set(token, string(value_redis) , 0).Result()
+
+					return
 
 				}
 			}
